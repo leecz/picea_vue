@@ -4,16 +4,20 @@ import VueAxios from "vue-axios";
 import JwtService from "@/common/jwt.service";
 import { API_URL } from "@/common/config";
 
+function setHeader() {
+  Vue.axios.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${JwtService.getToken()}`;
+}
+
 const ApiService = {
+  setHeader,
   init() {
     Vue.use(VueAxios, axios);
     Vue.axios.defaults.baseURL = API_URL;
-  },
-
-  setHeader() {
-    Vue.axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${JwtService.getToken()}`;
+    if (JwtService.getToken()) {
+      setHeader();
+    }
   },
 
   query(resource, params) {
@@ -75,6 +79,14 @@ export const ArticlesService = {
   }
 };
 
+export const SheetService = {
+  create(payload) {
+    return ApiService.post("/api/v1/sheets", payload);
+  },
+  list() {
+    return ApiService.get("/api/v1/sheets");
+  }
+};
 export const CommentsService = {
   get(slug) {
     if (typeof slug !== "string") {

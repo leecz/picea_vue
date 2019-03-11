@@ -1,12 +1,12 @@
 <template>
-  <el-container class="bg-washed-blue vh-100">
+  <el-container class="vh-100">
     <el-header class="bg-blue flex items-center">
       <div class="white f3">云杉微视</div>
     </el-header>
     <el-container>
       <el-aside
         width="100px"
-        class="flex flex-column items-center br b--light-silver color-primary"
+        class="flex flex-column items-center br b--light-silver color-primary "
       >
         <div class="mv4 tc">
           <svg-icon name="conduc" class="f1"></svg-icon>

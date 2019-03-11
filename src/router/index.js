@@ -40,6 +40,11 @@ export default new Router({
           path: "sheets",
           name: "sheets",
           component: () => import("@/views/sheets")
+        },
+        {
+          path: "sheets/new",
+          name: "sheets_new",
+          component: () => import("@/views/sheets/new")
         }
       ]
     },
