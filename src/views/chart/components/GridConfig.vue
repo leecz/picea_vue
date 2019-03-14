@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="f4 mt4 mb2">边距</div>
+    <div class="f4 mt3 mb2">边距</div>
     <el-form size="mini" label-width="80px">
       <el-form-item label="左边距">
         <vue-slider

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="f4 mt4 mb2">标题</div>
+    <div class="f4 mt3 mb2">标题</div>
     <el-form size="mini" label-width="80px">
       <el-form-item label="是否显示">
         <el-switch :value="title.show" @input="showChange"></el-switch>
