@@ -20,6 +20,7 @@
           :value="title.left"
           @change="leftChange"
           :tooltip-formatter="formatter"
+          use-keyboard
         ></vue-slider>
       </el-form-item>
       <el-form-item label="垂直位置">
@@ -27,6 +28,7 @@
           :value="title.top"
           @change="topChange"
           :tooltip-formatter="formatter"
+          use-keyboard
         ></vue-slider>
       </el-form-item>
     </el-form>
@@ -35,7 +37,6 @@
 
 <script>
 import Font from "./Font";
-import _ from "lodash";
 import { UPDATE_OPTION } from "@/store/mutations.type";
 export default {
   name: "title-config",

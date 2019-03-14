@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="f4 mb2">图表大小</div>
+    <div class="f4 mb2">尺寸</div>
     <el-form size="mini" label-width="80px">
       <el-form-item label="宽度">
         <vue-slider
@@ -36,9 +36,7 @@ export default {
   watch: {
     options: {
       deep: true,
-      handler: function() {
-        this.$emit("afterChange", this.options);
-      }
+      handler: function() {}
     }
   }
 };

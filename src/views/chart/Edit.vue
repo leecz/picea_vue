@@ -13,6 +13,7 @@
       <el-tabs tab-position="top">
         <el-tab-pane label="图表">
           <title-config></title-config>
+          <grid-config></grid-config>
         </el-tab-pane>
         <el-tab-pane label="标题">
           标题设置
@@ -36,16 +37,12 @@
 
 <script>
 import Echarts from "echarts";
-import BasicConfig from "./components/BasicConfig";
-import SizeConfig from "./components/SizeConfig";
 import GridConfig from "./components/GridConfig";
 import TitleConfig from "./components/TitleConfig";
 import { mapState } from "vuex";
 export default {
   name: "chart-edit",
   components: {
-    BasicConfig,
-    SizeConfig,
     GridConfig,
     TitleConfig
   },
