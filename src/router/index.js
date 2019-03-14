@@ -44,7 +44,17 @@ export default new Router({
         {
           path: "sheets/new",
           name: "sheets_new",
-          component: () => import("@/views/sheets/new")
+          component: () => import("@/views/sheets/New")
+        },
+        {
+          path: "chart/templates",
+          name: "chart_templates",
+          component: () => import("@/views/chart/templates/index")
+        },
+        {
+          path: "chart/edit",
+          name: "chart_edit",
+          component: () => import("@/views/chart/Edit")
         }
       ]
     },

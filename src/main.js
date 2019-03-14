@@ -10,7 +10,7 @@ Vue.use(ElementUI);
 
 import "./assets/scss/index.scss";
 
-import "./assets/iconfont/iconfont.js";
+// import "./assets/iconfont/iconfont.js";
 import SvgIcon from "@/components/svg-icon";
 Vue.component("SvgIcon", SvgIcon);
 
@@ -20,6 +20,11 @@ import ApiService from "./common/api.service";
 ApiService.init();
 
 import "./router/interceptor";
+
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/default.css";
+Vue.component("VueSlider", VueSlider);
+
 new Vue({
   router,
   store,

@@ -8,7 +8,7 @@
         width="100px"
         class="flex flex-column items-center br b--light-silver color-primary "
       >
-        <div class="mv4 tc">
+        <div class="mv4 tc" @click="$router.push('/works/chart/templates')">
           <svg-icon name="conduc" class="f1"></svg-icon>
           <div class="mt1">图表库</div>
         </div>
