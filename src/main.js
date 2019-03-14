@@ -24,6 +24,8 @@ import "./router/interceptor";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/default.css";
 Vue.component("VueSlider", VueSlider);
+import PercentSlider from "./components/PercentSlider";
+Vue.component("PercentSlider", PercentSlider);
 
 new Vue({
   router,

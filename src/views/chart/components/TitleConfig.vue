@@ -16,20 +16,16 @@
         <font path="title.textStyle"></font>
       </el-form-item>
       <el-form-item label="水平位置">
-        <vue-slider
-          :value="title.left"
+        <percent-slider
+          :percent="title.left"
           @change="leftChange"
-          :tooltip-formatter="formatter"
-          use-keyboard
-        ></vue-slider>
+        ></percent-slider>
       </el-form-item>
       <el-form-item label="垂直位置">
-        <vue-slider
-          :value="title.top"
+        <percent-slider
+          :percent="title.top"
           @change="topChange"
-          :tooltip-formatter="formatter"
-          use-keyboard
-        ></vue-slider>
+        ></percent-slider>
       </el-form-item>
     </el-form>
   </div>
@@ -49,18 +45,10 @@ export default {
       title: {
         show: true,
         text: "",
-        left: 0,
-        top: 0
+        left: "0%",
+        top: "0%"
       }
     };
-  },
-  computed: {
-    percentLeft() {
-      return this.title.left + "%";
-    },
-    percentTop() {
-      return this.title.top + "%";
-    }
   },
   methods: {
     showChange(val) {
@@ -72,30 +60,23 @@ export default {
       this.$store.commit(UPDATE_OPTION, { path: "title.text", value: val });
     },
     leftChange(val) {
-      this.title.left = val;
       this.$store.commit(UPDATE_OPTION, {
         path: "title.left",
-        value: this.percentLeft
+        value: val
       });
     },
     topChange(val) {
-      this.title.top = val;
       this.$store.commit(UPDATE_OPTION, {
         path: "title.top",
-        value: this.percentTop
+        value: val
       });
     }
   },
   created() {
-    let title = Object.assign(this.title, this.$store.state.chart.option.title);
-    let { left, top } = title;
-    if (left && typeof left === "string") {
-      title.left = parseInt(left);
-    }
-    if (top && typeof top === "string") {
-      title.top = parseInt(top);
-    }
-    this.title = title;
+    this.title = Object.assign(
+      this.title,
+      this.$store.state.chart.option.title
+    );
   }
 };
 </script>
