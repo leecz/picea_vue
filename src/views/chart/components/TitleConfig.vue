@@ -3,13 +3,13 @@
     <div class="f4 mt3 mb2">标题</div>
     <el-form size="mini" label-width="80px">
       <el-form-item label="是否显示">
-        <el-switch :value="title.show" @input="showChange"></el-switch>
+        <el-switch v-model="title.show" @change="showChange"></el-switch>
       </el-form-item>
       <el-form-item label="内容">
         <el-input
           type="text"
-          :value="title.text"
-          @input="textChange"
+          v-model="title.text"
+          @change="textChange"
         ></el-input>
       </el-form-item>
       <el-form-item label="字体">
@@ -52,11 +52,9 @@ export default {
   },
   methods: {
     showChange(val) {
-      this.title.show = val;
       this.$store.commit(UPDATE_OPTION, { path: "title.show", value: val });
     },
     textChange(val) {
-      this.title.text = val;
       this.$store.commit(UPDATE_OPTION, { path: "title.text", value: val });
     },
     leftChange(val) {

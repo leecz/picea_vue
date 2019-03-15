@@ -2,7 +2,7 @@
   <div>
     <div class="f4 mt3 mb2">图例</div>
     <el-form size="mini" label-width="80px">
-      <el-form-item label="显示">
+      <el-form-item label="是否显示">
         <el-switch v-model="legend.show" @change="showChange"></el-switch>
       </el-form-item>
       <el-form-item label="排列方式">

@@ -18,7 +18,10 @@
         <el-tab-pane label="图例">
           <legend-config></legend-config>
         </el-tab-pane>
-        <el-tab-pane label="坐标">
+        <el-tab-pane label="X轴">
+          <xaxis-config></xaxis-config>
+        </el-tab-pane>
+        <el-tab-pane label="Y轴">
           坐标轴设置
         </el-tab-pane>
         <el-tab-pane label="提示">
@@ -37,13 +40,15 @@ import Echarts from "echarts";
 import GridConfig from "./components/GridConfig";
 import TitleConfig from "./components/TitleConfig";
 import LegendConfig from "./components/LegendConfig";
+import XaxisConfig from "./components/XaxisConfig";
 import { mapState } from "vuex";
 export default {
   name: "chart-edit",
   components: {
     GridConfig,
     TitleConfig,
-    LegendConfig
+    LegendConfig,
+    XaxisConfig
   },
   data() {
     return {
