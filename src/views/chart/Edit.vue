@@ -22,7 +22,7 @@
           <xaxis-config></xaxis-config>
         </el-tab-pane>
         <el-tab-pane label="Y轴">
-          坐标轴设置
+          <yaxis-config></yaxis-config>
         </el-tab-pane>
         <el-tab-pane label="提示">
           提示框设置
@@ -41,6 +41,7 @@ import GridConfig from "./components/GridConfig";
 import TitleConfig from "./components/TitleConfig";
 import LegendConfig from "./components/LegendConfig";
 import XaxisConfig from "./components/XaxisConfig";
+import YaxisConfig from "./components/YaxisConfig";
 import { mapState } from "vuex";
 export default {
   name: "chart-edit",
@@ -48,7 +49,8 @@ export default {
     GridConfig,
     TitleConfig,
     LegendConfig,
-    XaxisConfig
+    XaxisConfig,
+    YaxisConfig
   },
   data() {
     return {
