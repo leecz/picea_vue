@@ -1,42 +1,9 @@
 <template>
   <div>
-    <div class="f4 mt4 mb2">边距</div>
+    <div class="f4 mt3 mb2">提示框</div>
     <el-form size="mini" label-width="80px">
-      <el-form-item label="左边距">
-        <vue-slider
-          v-model="grid.left"
-          :min="0"
-          :max="100"
-          @change="leftChange"
-          use-keyboard
-        ></vue-slider>
-      </el-form-item>
-      <el-form-item label="右边距">
-        <vue-slider
-          v-model="grid.right"
-          :min="0"
-          :max="100"
-          @change="rightChange"
-          use-keyboard
-        ></vue-slider>
-      </el-form-item>
-      <el-form-item label="上边距">
-        <vue-slider
-          v-model="grid.top"
-          :min="0"
-          :max="100"
-          @change="topChange"
-          use-keyboard
-        ></vue-slider>
-      </el-form-item>
-      <el-form-item label="下边距">
-        <vue-slider
-          v-model="grid.bottom"
-          :min="0"
-          :max="100"
-          @change="bottomChange"
-          use-keyboard
-        ></vue-slider>
+      <el-form-item label="是否显示">
+        <el-switch v-model="tooltip.show" @change="showChange"></el-switch>
       </el-form-item>
     </el-form>
   </div>
@@ -48,42 +15,24 @@ export default {
   name: "tooltip-config",
   data() {
     return {
-      grid: {
-        left: 80,
-        top: 60,
-        right: 80,
-        bottom: 60
+      tooltip: {
+        show: false
       }
     };
   },
   methods: {
-    leftChange(val) {
-      this.$store.commit(UPDATE_OPTION, {
-        path: "grid.left",
-        value: val
-      });
+    showChange(val) {
+      this.commitChange("tooltip.show", val);
     },
-    rightChange(val) {
-      this.$store.commit(UPDATE_OPTION, {
-        path: "grid.right",
-        value: val
-      });
-    },
-    topChange(val) {
-      this.$store.commit(UPDATE_OPTION, {
-        path: "grid.top",
-        value: val
-      });
-    },
-    bottomChange(val) {
-      this.$store.commit(UPDATE_OPTION, {
-        path: "grid.bottom",
-        value: val
-      });
+    commitChange(path, value) {
+      this.$store.commit(UPDATE_OPTION, { path, value });
     }
   },
   created() {
-    this.grid = Object.assign(this.grid, this.$store.state.chart.option.grid);
+    this.tooltip = Object.assign(
+      this.tooltip,
+      this.$store.state.chart.option.tooltip
+    );
   }
 };
 </script>

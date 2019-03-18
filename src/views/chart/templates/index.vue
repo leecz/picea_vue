@@ -2,12 +2,37 @@
   <div>
     图表模板
     <div class="flex">
-      <div class="tc" @click="$router.push({ name: 'chart_edit' })">
-        <svg-icon name="fsux_zhifangtu" class="f-6"></svg-icon>
+      <div
+        v-for="(item, i) in templates"
+        :key="i"
+        class="tc"
+        @click="onClick(item)"
+      >
+        <svg-icon :name="item.icon" class="f-6"></svg-icon>
         <div>
-          直方图
+          {{ item.name }}
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { SET_OPTION } from "@/store/mutations.type";
+export default {
+  data() {
+    return {
+      templates: []
+    };
+  },
+  methods: {
+    onClick(item) {
+      this.$store.commit(SET_OPTION, item.option);
+      this.$router.push({ name: "chart_edit" });
+    }
+  },
+  mounted() {
+    this.templates = this.$store.state.template.charts;
+  }
+};
+</script>

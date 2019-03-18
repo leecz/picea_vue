@@ -25,13 +25,13 @@
           class="xaxis-icon-size"
         >
           <el-radio-button label="start">
-            <svg-icon name="align-left"></svg-icon>
+            <svg-icon name="icon-align-left"></svg-icon>
           </el-radio-button>
           <el-radio-button label="center">
-            <svg-icon name="align-center"></svg-icon>
+            <svg-icon name="icon-align-center"></svg-icon>
           </el-radio-button>
           <el-radio-button label="end">
-            <svg-icon name="align-right"></svg-icon>
+            <svg-icon name="icon-align-right"></svg-icon>
           </el-radio-button>
         </el-radio-group>
       </el-form-item>

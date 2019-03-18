@@ -25,13 +25,13 @@
           class="yAxis-icon-size"
         >
           <el-radio-button label="end">
-            <svg-icon name="align-top"></svg-icon>
+            <svg-icon name="icon-align-top"></svg-icon>
           </el-radio-button>
           <el-radio-button label="center">
-            <svg-icon name="align-middle"></svg-icon>
+            <svg-icon name="icon-align-middle"></svg-icon>
           </el-radio-button>
           <el-radio-button label="start">
-            <svg-icon name="align-bottom"></svg-icon>
+            <svg-icon name="icon-align-bottom"></svg-icon>
           </el-radio-button>
         </el-radio-group>
       </el-form-item>

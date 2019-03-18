@@ -20,7 +20,7 @@
           type="text"
           auto-complete="off"
         >
-          <svg-icon slot="prefix" name="user" />
+          <svg-icon slot="prefix" name="icon-user" />
         </el-input>
       </el-form-item>
 
@@ -33,11 +33,11 @@
           auto-complete="off"
           @keyup.enter.native="onSubmit"
         >
-          <svg-icon slot="prefix" name="password" class="f5" />
+          <svg-icon slot="prefix" name="icon-password" class="f5" />
           <svg-icon
             @click="showPwd = !showPwd"
             slot="suffix"
-            :name="showPwd ? 'eye' : 'eye-close'"
+            :name="showPwd ? 'icon-eye' : 'icon-eye-close'"
             class="mr1"
           />
         </el-input>

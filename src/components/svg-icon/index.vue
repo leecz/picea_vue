@@ -10,12 +10,12 @@ export default {
   props: {
     name: {
       type: String,
-      default: "dog"
+      default: "icon-dog"
     }
   },
   computed: {
     iconName() {
-      return `#icon-${this.name}`;
+      return `#${this.name}`;
     }
   }
 };

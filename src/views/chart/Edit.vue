@@ -14,6 +14,7 @@
         <el-tab-pane label="图表">
           <title-config></title-config>
           <grid-config></grid-config>
+          <tooltip-config></tooltip-config>
         </el-tab-pane>
         <el-tab-pane label="图例">
           <legend-config></legend-config>
@@ -23,9 +24,6 @@
         </el-tab-pane>
         <el-tab-pane label="Y轴">
           <yaxis-config></yaxis-config>
-        </el-tab-pane>
-        <el-tab-pane label="提示">
-          提示框设置
         </el-tab-pane>
         <el-tab-pane label="系列">
           系列设置
@@ -43,6 +41,7 @@ import LegendConfig from "./components/LegendConfig";
 import XaxisConfig from "./components/XaxisConfig";
 import YaxisConfig from "./components/YaxisConfig";
 import { mapState } from "vuex";
+import TooltipConfig from "./components/TooltipConfig";
 export default {
   name: "chart-edit",
   components: {
@@ -50,7 +49,8 @@ export default {
     TitleConfig,
     LegendConfig,
     XaxisConfig,
-    YaxisConfig
+    YaxisConfig,
+    TooltipConfig
   },
   data() {
     return {

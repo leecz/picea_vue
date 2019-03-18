@@ -9,15 +9,15 @@
         class="flex flex-column items-center br b--light-silver color-primary "
       >
         <div class="mv4 tc" @click="$router.push('/works/chart/templates')">
-          <svg-icon name="conduc" class="f1"></svg-icon>
+          <svg-icon name="icon-conduc" class="f1"></svg-icon>
           <div class="mt1">图表库</div>
         </div>
         <div class="mv4 tc" @click="$router.push('/works/sheets')">
-          <svg-icon name="data" class="f1"></svg-icon>
+          <svg-icon name="icon-data" class="f1"></svg-icon>
           <div class="mt1">数据源</div>
         </div>
         <div class="mv4 tc">
-          <svg-icon name="photo" class="f1"></svg-icon>
+          <svg-icon name="icon-photo" class="f1"></svg-icon>
           <div class="mt1">图表</div>
         </div>
       </el-aside>
