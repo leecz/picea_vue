@@ -27,6 +27,8 @@ Vue.component("VueSlider", VueSlider);
 import PercentSlider from "./components/PercentSlider";
 Vue.component("PercentSlider", PercentSlider);
 
+import "./common/theme.config";
+
 new Vue({
   router,
   store,

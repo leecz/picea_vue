@@ -60,7 +60,8 @@ export default {
   computed: {
     ...mapState({
       option: state => state.chart.option,
-      dataset: state => state.chart.option.dataset
+      dataset: state => state.chart.option.dataset,
+      theme: state => state.theme.current
     })
   },
   watch: {
@@ -73,7 +74,7 @@ export default {
   },
   methods: {
     init() {
-      this.chart = Echarts.init(document.getElementById("chart"));
+      this.chart = Echarts.init(document.getElementById("chart"), this.theme);
     },
     setOption() {
       this.chart.setOption(this.option);

@@ -14,3 +14,5 @@ export const RESET_STATE = "resetModuleState";
 
 export const UPDATE_OPTION = "updateOption";
 export const SET_OPTION = "setOption";
+export const SET_THEMES = "setThemes";
+export const SET_THEME = "setTheme";
