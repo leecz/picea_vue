@@ -8,6 +8,7 @@ const files = require.context("./echart-theme/", false, /\.json$/);
 const themes = [];
 files.keys().forEach(filename => {
   let name = filename.replace(/(.*\/)*([^.]+).*/gi, "$2");
+  themes.push(name);
   echarts.registerTheme(name, files(filename));
 });
 

@@ -55,6 +55,11 @@ export default new Router({
           path: "chart/edit",
           name: "chart_edit",
           component: () => import("@/views/chart/Edit")
+        },
+        {
+          path: "chart/theme",
+          name: "chart_theme",
+          component: () => import("@/views/theme")
         }
       ]
     },
