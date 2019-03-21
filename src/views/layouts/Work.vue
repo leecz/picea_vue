@@ -20,6 +20,10 @@
           <svg-icon name="icon-photo" class="f1"></svg-icon>
           <div class="mt1">图表</div>
         </div>
+        <div class="mv4 tc" @click="$router.push('/works/chart/theme')">
+          <svg-icon name="icon-shape2" class="f1"></svg-icon>
+          <div class="mt1">图表</div>
+        </div>
       </el-aside>
       <el-main>
         <router-view />

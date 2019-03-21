@@ -41,6 +41,7 @@ export default {
   },
   computed: {
     ...mapState({
+      currentTheme: state => state.theme.current,
       themes: state => state.theme.themes
     })
   },
@@ -51,6 +52,7 @@ export default {
     },
     onClick() {
       this.$store.commit(SET_THEME, this.current);
+      this.$message.success("设置成功");
     },
     init() {
       this.chart1 = echarts.init(
@@ -162,6 +164,7 @@ export default {
     }
   },
   mounted() {
+    this.current = this.currentTheme;
     this.init();
   }
 };
