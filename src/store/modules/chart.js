@@ -1,7 +1,19 @@
-import { SET_OPTION, UPDATE_OPTION } from "../mutations.type";
+import {
+  SET_OPTION,
+  UPDATE_OPTION,
+  SET_CHART_ID,
+  SET_CHART_NAME,
+  SET_BASIC
+} from "../mutations.type";
 import _ from "lodash";
+import { ChartService } from "@/common/api.service";
+import { CREATE_CHART } from "@/store/actions.type";
 
 const state = {
+  id: null,
+  name: "",
+  type: "line",
+  typeName: "折线图",
   option: {
     title: {},
     dataset: {
@@ -23,10 +35,30 @@ const state = {
 const getters = {
   currentOption(state) {
     return state.option;
+  },
+  dataset(state) {
+    return state.option.dataset;
+  },
+  isEdit(state) {
+    return !!state.id;
   }
 };
 
-const actions = {};
+const actions = {
+  async [CREATE_CHART]({ state, commit, rootState }) {
+    let res = await ChartService.create({
+      chart: {
+        name: state.name,
+        type: state.type,
+        type_name: state.typeName,
+        theme: rootState.theme.current,
+        option: state.option
+      }
+    });
+    commit(SET_CHART_ID, res.data.data);
+    return res;
+  }
+};
 
 const mutations = {
   [SET_OPTION](state, option) {
@@ -38,6 +70,16 @@ const mutations = {
     let option = Object.assign({}, state.option);
     _.set(option, path, value);
     state.option = option;
+  },
+  [SET_BASIC](state, chart) {
+    state.type = chart.type;
+    state.typeName = chart.name;
+  },
+  [SET_CHART_ID](state, { id }) {
+    state.id = id;
+  },
+  [SET_CHART_NAME](state, name) {
+    state.name = name;
   }
 };
 

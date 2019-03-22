@@ -16,3 +16,7 @@ export const UPDATE_OPTION = "updateOption";
 export const SET_OPTION = "setOption";
 export const SET_THEMES = "setThemes";
 export const SET_THEME = "setTheme";
+export const SET_THEME_ID = "setThemeId";
+export const SET_CHART_NAME = "setChartName";
+export const SET_BASIC = "setBasic";
+export const SET_CHART_ID = "setChartId";

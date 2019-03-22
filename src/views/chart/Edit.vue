@@ -3,10 +3,12 @@
     <div class="flex-auto flex flex-column">
       <div class="chart-wrap ba b--light-gray mr2 pa2 overflow-x-auto">
         图表编辑
+        <chart-head></chart-head>
         <div id="chart" class="w-100" style="min-height: 480px;"></div>
       </div>
       <div class="ba b--light-gray mr2 mt2 pa2">
         数据
+        <data-set></data-set>
       </div>
     </div>
     <div class="edit-bar ba b--light-gray pa1">
@@ -42,6 +44,8 @@ import XaxisConfig from "./components/XaxisConfig";
 import YaxisConfig from "./components/YaxisConfig";
 import { mapState } from "vuex";
 import TooltipConfig from "./components/TooltipConfig";
+import DataSet from "./components/DataSet";
+import ChartHead from "./components/ChartHead";
 export default {
   name: "chart-edit",
   components: {
@@ -50,7 +54,9 @@ export default {
     LegendConfig,
     XaxisConfig,
     YaxisConfig,
-    TooltipConfig
+    TooltipConfig,
+    DataSet,
+    ChartHead
   },
   data() {
     return {

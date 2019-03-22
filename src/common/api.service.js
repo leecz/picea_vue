@@ -87,6 +87,14 @@ export const SheetService = {
     return ApiService.get("/api/v1/sheets");
   }
 };
+export const ChartService = {
+  create(payload) {
+    return ApiService.post("/api/v1/charts", payload);
+  },
+  list() {
+    return ApiService.get("/api/v1/charts");
+  }
+};
 export const CommentsService = {
   get(slug) {
     if (typeof slug !== "string") {
