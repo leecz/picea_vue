@@ -7,7 +7,7 @@ export default {
     colors: {}
   },
   getters: {
-    currentColor(state) {
+    currentColors(state) {
       return state.colors[state.current];
     }
   },

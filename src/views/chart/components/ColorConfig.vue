@@ -1,24 +1,40 @@
 <template>
   <div>
     <div class="f4 mt3 mb2">颜色</div>
-    <div>
+    <div class="flex flex-wrap">
       <div v-for="(color, i) in colors" :key="i">
-        {{ color }}
+        <el-color-picker v-model="colors[i]"></el-color-picker>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
+import { UPDATE_OPTION } from "@/store/mutations.type";
+
 export default {
   data() {
-    return {};
+    return {
+      colors: []
+    };
   },
   computed: {
-    ...mapState({
-      colors: state => state.chart.option.colors
-    })
+    ...mapGetters(["currentColors"])
+  },
+  watch: {
+    colors: {
+      deep: true,
+      handler: function() {
+        this.$store.commit(UPDATE_OPTION, {
+          path: "color",
+          value: this.colors
+        });
+      }
+    }
+  },
+  mounted() {
+    this.colors = JSON.parse(JSON.stringify(this.currentColors));
   }
 };
 </script>
