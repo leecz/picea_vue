@@ -21,3 +21,4 @@ export const SET_CHART_NAME = "setChartName";
 export const SET_CHART_ID = "setChartId";
 export const SET_CHART = "setChart";
 export const SET_CHART_THEME = "setChartTheme";
+export const SET_THEME_COLORS = "setThemeColors";

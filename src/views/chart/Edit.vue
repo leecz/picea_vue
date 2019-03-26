@@ -17,6 +17,7 @@
           <title-config></title-config>
           <grid-config></grid-config>
           <tooltip-config></tooltip-config>
+          <color-config></color-config>
         </el-tab-pane>
         <el-tab-pane label="图例">
           <legend-config></legend-config>
@@ -47,6 +48,7 @@ import TooltipConfig from "./components/TooltipConfig";
 import DataSet from "./components/DataSet";
 import ChartHead from "./components/ChartHead";
 import { SET_CHART_THEME } from "@/store/mutations.type";
+import ColorConfig from "./components/ColorConfig";
 export default {
   name: "chart-edit",
   components: {
@@ -57,7 +59,8 @@ export default {
     YaxisConfig,
     TooltipConfig,
     DataSet,
-    ChartHead
+    ChartHead,
+    ColorConfig
   },
   data() {
     return {

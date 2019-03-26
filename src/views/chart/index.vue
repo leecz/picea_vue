@@ -1,10 +1,15 @@
 <template>
   <div>
     <div>我的图表</div>
-    <div class="flex">
-      <div :key="item.id" v-for="item in dataset" class="w-25 h5">
+    <div class="flex flex-wrap">
+      <div
+        :key="item.id"
+        v-for="item in dataset"
+        class="w-25 ba pa1 ma2 b--light-gray"
+      >
         <div :id="`chart-${item.id}`" class="w-100" style="height: 250px"></div>
-        <div>
+        <div class="flex justify-around">
+          <el-button size="mini" @click="onEditClick(item)">预览</el-button>
           <el-button size="mini" @click="onEditClick(item)">编辑</el-button>
         </div>
       </div>
