@@ -9,7 +9,7 @@ const T = {
 const charts = [
   {
     type: T.LINE,
-    name: "折线图",
+    type_name: "折线图",
     icon: "icon-fsux_zhexiantu",
     option: {
       legend: {},
@@ -30,7 +30,7 @@ const charts = [
   },
   {
     type: T.LINE,
-    name: "面积图",
+    type_name: "面积图",
     icon: "icon-fsux_mianji",
     option: {
       legend: {},
@@ -55,7 +55,7 @@ const charts = [
   },
   {
     type: T.LINE,
-    name: "堆叠面积图",
+    type_name: "堆叠面积图",
     icon: "icon-fsux_duijimianjitu",
     option: {
       legend: {},
@@ -80,7 +80,7 @@ const charts = [
   },
   {
     type: T.BAR,
-    name: "柱形图",
+    type_name: "柱形图",
     icon: "icon-fsux_zhuzhuangtu1",
     option: {
       legend: {},
@@ -101,7 +101,7 @@ const charts = [
   },
   {
     type: T.BAR,
-    name: "堆叠柱形图",
+    type_name: "堆叠柱形图",
     icon: "icon-fsux_tubiao_duijizhuzhuangtu",
     option: {
       legend: {},
@@ -126,7 +126,7 @@ const charts = [
   },
   {
     type: T.BAR,
-    name: "条形图",
+    type_name: "条形图",
     icon: "icon-fsux_zhuzhuangtu",
     option: {
       legend: {},
@@ -147,7 +147,7 @@ const charts = [
   },
   {
     type: T.BAR,
-    name: "堆叠柱形图",
+    type_name: "堆叠柱形图",
     icon: "icon-fsux_duijizhuzhuangtu1",
     option: {
       legend: {},
@@ -172,7 +172,7 @@ const charts = [
   },
   {
     type: T.PIE,
-    name: "饼图",
+    type_name: "饼图",
     icon: "icon-fsux_bingtu1",
     option: {
       legend: {},
@@ -191,7 +191,7 @@ const charts = [
   },
   {
     type: T.PIE,
-    name: "环图",
+    type_name: "环图",
     icon: "icon-fsux_bingtu",
     option: {
       legend: {},
@@ -210,7 +210,7 @@ const charts = [
   },
   {
     type: T.PIE,
-    name: "玫瑰图",
+    type_name: "玫瑰图",
     icon: "icon-fsux_nandingmeiguitu",
     option: {
       legend: {},
@@ -229,7 +229,7 @@ const charts = [
   },
   {
     type: T.SCATTER,
-    name: "散点图",
+    type_name: "散点图",
     icon: "icon-fsux_sandiantu",
     option: {
       legend: {},
@@ -260,7 +260,7 @@ const charts = [
   },
   {
     type: T.SCATTER,
-    name: "气泡图",
+    type_name: "气泡图",
     icon: "icon-fsux_qipaotu",
     option: {
       legend: {},

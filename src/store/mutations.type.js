@@ -18,5 +18,6 @@ export const SET_THEMES = "setThemes";
 export const SET_THEME = "setTheme";
 export const SET_THEME_ID = "setThemeId";
 export const SET_CHART_NAME = "setChartName";
-export const SET_BASIC = "setBasic";
 export const SET_CHART_ID = "setChartId";
+export const SET_CHART = "setChart";
+export const SET_CHART_THEME = "setChartTheme";

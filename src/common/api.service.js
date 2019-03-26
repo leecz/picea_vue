@@ -53,9 +53,9 @@ const ApiService = {
 
 export default ApiService;
 
-export const TagsService = {
-  get() {
-    return ApiService.get("tags");
+export const ChartsService = {
+  list() {
+    return ApiService.get("/api/v1/charts");
   }
 };
 
@@ -90,6 +90,9 @@ export const SheetService = {
 export const ChartService = {
   create(payload) {
     return ApiService.post("/api/v1/charts", payload);
+  },
+  update(id, payload) {
+    return ApiService.put(`/api/v1/charts/${id}`, payload);
   },
   list() {
     return ApiService.get("/api/v1/charts");

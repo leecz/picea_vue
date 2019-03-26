@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { SET_OPTION, SET_BASIC } from "@/store/mutations.type";
+import { SET_CHART } from "@/store/mutations.type";
 export default {
   data() {
     return {
@@ -27,8 +27,8 @@ export default {
   },
   methods: {
     onClick(item) {
-      this.$store.commit(SET_BASIC, item);
-      this.$store.commit(SET_OPTION, item.option);
+      item.theme = null;
+      this.$store.commit(SET_CHART, item);
       this.$router.push({ name: "chart_edit" });
     }
   },

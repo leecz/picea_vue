@@ -60,6 +60,11 @@ export default new Router({
           path: "chart/theme",
           name: "chart_theme",
           component: () => import("@/views/theme")
+        },
+        {
+          path: "charts",
+          name: "charts",
+          component: () => import("@/views/chart")
         }
       ]
     },

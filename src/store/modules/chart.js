@@ -1,19 +1,20 @@
 import {
   SET_OPTION,
   UPDATE_OPTION,
-  SET_CHART_ID,
   SET_CHART_NAME,
-  SET_BASIC
+  SET_CHART,
+  SET_CHART_ID,
+  SET_CHART_THEME
 } from "../mutations.type";
 import _ from "lodash";
 import { ChartService } from "@/common/api.service";
-import { CREATE_CHART } from "@/store/actions.type";
+import { CREATE_CHART, UPDATE_CHART } from "@/store/actions.type";
 
 const state = {
   id: null,
   name: "",
   type: "line",
-  typeName: "折线图",
+  type_name: "折线图",
   option: {
     title: {},
     dataset: {
@@ -29,7 +30,8 @@ const state = {
     yAxis: {},
     series: [{ type: "bar" }, { type: "bar" }, { type: "line" }],
     custom: {}
-  }
+  },
+  theme: undefined
 };
 
 const getters = {
@@ -45,13 +47,26 @@ const getters = {
 };
 
 const actions = {
-  async [CREATE_CHART]({ state, commit, rootState }) {
+  async [UPDATE_CHART]({ state }) {
+    let res = await ChartService.update(state.id, {
+      chart: {
+        id: state.id,
+        name: state.name,
+        type: state.type,
+        type_name: state.type_name,
+        theme: state.theme,
+        option: state.option
+      }
+    });
+    return res;
+  },
+  async [CREATE_CHART]({ state, commit }) {
     let res = await ChartService.create({
       chart: {
         name: state.name,
         type: state.type,
-        type_name: state.typeName,
-        theme: rootState.theme.current,
+        type_name: state.type_name,
+        theme: state.theme,
         option: state.option
       }
     });
@@ -71,15 +86,18 @@ const mutations = {
     _.set(option, path, value);
     state.option = option;
   },
-  [SET_BASIC](state, chart) {
-    state.type = chart.type;
-    state.typeName = chart.name;
-  },
-  [SET_CHART_ID](state, { id }) {
-    state.id = id;
-  },
   [SET_CHART_NAME](state, name) {
     state.name = name;
+  },
+  [SET_CHART_THEME](state, theme) {
+    state.theme = theme;
+  },
+  [SET_CHART](state, { id, name, type, type_name, option }) {
+    state.name = name;
+    state.id = id;
+    state.type = type;
+    state.type_name = type_name;
+    state.option = option;
   }
 };
 

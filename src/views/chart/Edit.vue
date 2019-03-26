@@ -46,6 +46,7 @@ import { mapState } from "vuex";
 import TooltipConfig from "./components/TooltipConfig";
 import DataSet from "./components/DataSet";
 import ChartHead from "./components/ChartHead";
+import { SET_CHART_THEME } from "@/store/mutations.type";
 export default {
   name: "chart-edit",
   components: {
@@ -67,7 +68,9 @@ export default {
     ...mapState({
       option: state => state.chart.option,
       dataset: state => state.chart.option.dataset,
-      theme: state => state.theme.current
+      theme: state => state.chart.theme,
+      type: state => state.chart.type,
+      globalTheme: state => state.theme.current
     })
   },
   watch: {
@@ -92,6 +95,11 @@ export default {
     sizeChange(option) {
       this.option.custom = option;
       this.chart.resize(option);
+    }
+  },
+  created() {
+    if (!this.theme) {
+      this.$store.commit(SET_CHART_THEME, this.globalTheme);
     }
   },
   mounted() {
