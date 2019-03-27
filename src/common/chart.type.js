@@ -3,7 +3,14 @@ const T = {
   BAR: "bar",
   PIE: "pie",
   SCATTER: "scatter",
-  BUBBLE: "bubble"
+  BUBBLE: "bubble",
+  MIXED: "mixed"
+};
+
+const CUSTOM_OPTION = {
+  multi_series: true,
+  same_series: true,
+  require_visual_map: false
 };
 
 const charts = [
@@ -25,7 +32,10 @@ const charts = [
       },
       xAxis: { type: "category" },
       yAxis: {},
-      series: [{ type: "line" }, { type: "line" }, { type: "line" }]
+      series: [{ type: "line" }, { type: "line" }, { type: "line" }],
+      custom: {
+        multi_series: true
+      }
     }
   },
   {
@@ -50,7 +60,10 @@ const charts = [
         { type: "line", areaStyle: {} },
         { type: "line", areaStyle: {} },
         { type: "line", areaStyle: {} }
-      ]
+      ],
+      custom: {
+        multi_series: true
+      }
     }
   },
   {
@@ -75,7 +88,10 @@ const charts = [
         { type: "line", areaStyle: {}, stack: "stack" },
         { type: "line", areaStyle: {}, stack: "stack" },
         { type: "line", areaStyle: {}, stack: "stack" }
-      ]
+      ],
+      custom: {
+        multi_series: true
+      }
     }
   },
   {
@@ -96,7 +112,10 @@ const charts = [
       },
       xAxis: { type: "category" },
       yAxis: {},
-      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
+      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }],
+      custom: {
+        multi_series: true
+      }
     }
   },
   {
@@ -121,7 +140,10 @@ const charts = [
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" }
-      ]
+      ],
+      custom: {
+        multi_series: true
+      }
     }
   },
   {
@@ -142,7 +164,11 @@ const charts = [
       },
       yAxis: { type: "category" },
       xAxis: { type: "value" },
-      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
+      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }],
+      custom: {
+        multi_series: true,
+        same_series: true
+      }
     }
   },
   {
@@ -167,7 +193,36 @@ const charts = [
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" }
-      ]
+      ],
+      custom: {
+        multi_series: true,
+        same_series: true
+      }
+    }
+  },
+  {
+    type: T.MIXED,
+    type_name: "混合图",
+    icon: "icon-fsux_shuangzhoutu",
+    option: {
+      legend: {},
+      tooltip: {},
+      dataset: {
+        source: [
+          ["product", "2015", "2016", "2017"],
+          ["拿铁", 43.3, 85.8, 93.7],
+          ["奶茶", 83.1, 73.4, 55.1],
+          ["可可", 86.4, 65.2, 82.5],
+          ["六个核桃", 72.4, 53.9, 39.1]
+        ]
+      },
+      xAxis: { type: "category" },
+      yAxis: {},
+      series: [{ type: "bar" }, { type: "bar" }, { type: "line" }],
+      custom: {
+        multi_series: true,
+        same_series: false
+      }
     }
   },
   {
@@ -186,7 +241,10 @@ const charts = [
           ["六个核桃", 72.4]
         ]
       },
-      series: [{ type: "pie" }]
+      series: [{ type: "pie" }],
+      custom: {
+        multi_series: false
+      }
     }
   },
   {
@@ -205,7 +263,10 @@ const charts = [
           ["六个核桃", 72.4]
         ]
       },
-      series: [{ type: "pie", radius: ["50%", "70%"] }]
+      series: [{ type: "pie", radius: ["50%", "70%"] }],
+      custom: {
+        multi_series: false
+      }
     }
   },
   {
@@ -224,7 +285,10 @@ const charts = [
           ["六个核桃", 72.4]
         ]
       },
-      series: [{ type: "pie", roseType: "radius" }]
+      series: [{ type: "pie", roseType: "radius" }],
+      custom: {
+        multi_series: false
+      }
     }
   },
   {
@@ -255,7 +319,10 @@ const charts = [
       },
       xAxis: {},
       yAxis: {},
-      series: [{ type: "scatter" }]
+      series: [{ type: "scatter" }],
+      custom: {
+        multi_series: false
+      }
     }
   },
   {
@@ -281,10 +348,14 @@ const charts = [
           symbolSize: [10, 120]
         }
       },
-      series: [{ type: "scatter" }]
+      series: [{ type: "scatter" }],
+      custom: {
+        multi_series: false,
+        visualMap: true
+      }
     }
   }
 ];
 
 export default charts;
-export { T };
+export { T, CUSTOM_OPTION };

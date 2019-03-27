@@ -13,7 +13,7 @@
 <script>
 import { HotTable } from "@handsontable/vue";
 import "handsontable/languages/zh-CN";
-import { UPDATE_OPTION } from "@/store/mutations.type";
+import { UPDATE_OPTION, RESET_CHART_SERIES } from "@/store/mutations.type";
 
 export default {
   name: "dataset",
@@ -55,6 +55,7 @@ export default {
           path: "dataset.source",
           value: this.getSourceData()
         });
+        this.$store.commit(RESET_CHART_SERIES);
       }
     }
   },

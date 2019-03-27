@@ -4,11 +4,13 @@ import {
   SET_CHART_NAME,
   SET_CHART,
   SET_CHART_ID,
-  SET_CHART_THEME
+  SET_CHART_THEME,
+  RESET_CHART_SERIES
 } from "../mutations.type";
 import _ from "lodash";
 import { ChartService } from "@/common/api.service";
 import { CREATE_CHART, UPDATE_CHART } from "@/store/actions.type";
+import { T, CUSTOM_OPTION } from "@/common/chart.type";
 
 const state = {
   id: null,
@@ -98,6 +100,27 @@ const mutations = {
     state.type = type;
     state.type_name = type_name;
     state.option = option;
+  },
+  [RESET_CHART_SERIES](state) {
+    let custom = Object.assign({}, CUSTOM_OPTION, state.option.custom);
+    if (!custom.multi_series) {
+      return;
+    }
+    // 默认数据的第一行为维度
+    let dem = state.option.dataset.source[0];
+    let demLen = dem.length - 1;
+    let oldSeries = state.option.series;
+    if (oldSeries.length === demLen) {
+      return;
+    } else {
+      state.option.series = _.times(demLen, _.constant(oldSeries[0]));
+    }
+    if (state.type === T.MIXED) {
+      let seri = state.option.series.pop();
+      seri.type = seri.type === "line" ? "bar" : "line";
+      state.option.series.push(seri);
+    }
+    state.option = Object.assign({}, state.option);
   }
 };
 
