@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div class="flex justify-end items-center">
+      <span class="mr1">关联数据 </span>
+      <el-select v-model="selectSheet" @change="onSelectChange">
+        <el-option
+          v-for="sheet in datasheets"
+          :key="sheet.id"
+          :label="sheet.name"
+          :value="sheet.id"
+        ></el-option>
+      </el-select>
+    </div>
     <hot-table
       :settings="settings"
       :data="sheetData"
@@ -15,6 +26,8 @@ import { HotTable } from "@handsontable/vue";
 import "handsontable/languages/zh-CN";
 import { UPDATE_OPTION, RESET_CHART_SERIES } from "@/store/mutations.type";
 
+import { SheetService } from "@/common/api.service";
+
 export default {
   name: "dataset",
   components: {
@@ -22,6 +35,8 @@ export default {
   },
   data() {
     return {
+      selectSheet: null,
+      datasheets: [],
       dataName: "",
       settings: {
         licenseKey: "non-commercial-and-evaluation",
@@ -57,9 +72,23 @@ export default {
         });
         this.$store.commit(RESET_CHART_SERIES);
       }
+    },
+    getDataList() {
+      SheetService.list().then(res => {
+        this.datasheets = res.data.data;
+      });
+    },
+    onSelectChange() {
+      let sheet = this.datasheets.find(el => el.id === this.selectSheet);
+      this.$store.commit(UPDATE_OPTION, {
+        path: "dataset.source",
+        value: sheet.data.source
+      });
+      this.sheetData = sheet.data.source;
     }
   },
   mounted() {
+    this.getDataList();
     this.hotRef = this.$refs.sheetTable.hotInstance;
     this.dataset = this.$store.getters.dataset;
     this.sheetData = this.dataset.source;

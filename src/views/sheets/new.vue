@@ -113,7 +113,7 @@ export default {
       SheetService.create({
         sheet: {
           name: this.dataName,
-          data: { rows: this.getSourceData() }
+          data: { source: this.getSourceData() }
         }
       }).then(res => {
         console.log(res);

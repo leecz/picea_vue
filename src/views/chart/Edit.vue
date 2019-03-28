@@ -17,7 +17,6 @@
           <title-config></title-config>
           <grid-config></grid-config>
           <tooltip-config></tooltip-config>
-          <color-config></color-config>
         </el-tab-pane>
         <el-tab-pane label="图例">
           <legend-config></legend-config>
@@ -29,7 +28,7 @@
           <yaxis-config></yaxis-config>
         </el-tab-pane>
         <el-tab-pane label="系列">
-          系列设置
+          <color-config></color-config>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -89,15 +88,7 @@ export default {
       this.chart = Echarts.init(document.getElementById("chart"), this.theme);
     },
     setOption() {
-      this.chart.setOption(this.option);
-    },
-    afterChange(option) {
-      this.option = Object.assign(this.option, option);
-      this.setOption();
-    },
-    sizeChange(option) {
-      this.option.custom = option;
-      this.chart.resize(option);
+      this.chart.setOption(this.option, true);
     }
   },
   created() {

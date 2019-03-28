@@ -10,7 +10,7 @@ import {
 import _ from "lodash";
 import { ChartService } from "@/common/api.service";
 import { CREATE_CHART, UPDATE_CHART } from "@/store/actions.type";
-import { T, CUSTOM_OPTION } from "@/common/chart.type";
+import { CUSTOM_OPTION } from "@/common/chart.type";
 
 const state = {
   id: null,
@@ -30,7 +30,7 @@ const state = {
     },
     xAxis: { type: "category" },
     yAxis: {},
-    series: [{ type: "bar" }, { type: "bar" }, { type: "line" }],
+    series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }],
     custom: {}
   },
   theme: undefined
@@ -86,13 +86,16 @@ const mutations = {
     // 对于没有初始化的属性，组件是响应其变化的。
     let option = Object.assign({}, state.option);
     _.set(option, path, value);
-    state.option = option;
+    state.option = JSON.parse(JSON.stringify(option));
   },
   [SET_CHART_NAME](state, name) {
     state.name = name;
   },
   [SET_CHART_THEME](state, theme) {
     state.theme = theme;
+  },
+  [SET_CHART_ID](state, id) {
+    state.id = id;
   },
   [SET_CHART](state, { id, name, type, type_name, option }) {
     state.name = name;
@@ -110,16 +113,20 @@ const mutations = {
     let dem = state.option.dataset.source[0];
     let demLen = dem.length - 1;
     let oldSeries = state.option.series;
-    if (oldSeries.length === demLen) {
+    let serLen = oldSeries.length;
+    if (demLen === serLen) {
       return;
+    } else if (demLen < serLen) {
+      _.times(serLen - demLen, state.option.series.pop());
     } else {
-      state.option.series = _.times(demLen, _.constant(oldSeries[0]));
+      _.times(demLen - serLen, state.option.series.push(oldSeries[0]));
     }
-    if (state.type === T.MIXED) {
-      let seri = state.option.series.pop();
-      seri.type = seri.type === "line" ? "bar" : "line";
-      state.option.series.push(seri);
-    }
+    // }
+    // if (state.type === T.MIXED) {
+    //   let seri = state.option.series.pop();
+    //   seri.type = oldSeries[0].type === "line" ? "bar" : "line";
+    //   state.option.series.push(seri);
+    // }
     state.option = Object.assign({}, state.option);
   }
 };
