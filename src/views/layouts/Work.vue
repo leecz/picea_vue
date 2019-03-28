@@ -8,21 +8,15 @@
         width="100px"
         class="flex flex-column items-center br b--light-silver color-primary "
       >
-        <div class="mv4 tc" @click="$router.push('/works/chart/templates')">
-          <svg-icon name="icon-conduc" class="f1"></svg-icon>
-          <div class="mt1">图表库</div>
-        </div>
-        <div class="mv4 tc" @click="$router.push('/works/sheets')">
-          <svg-icon name="icon-data" class="f1"></svg-icon>
-          <div class="mt1">数据源</div>
-        </div>
-        <div class="mv4 tc" @click="$router.push('/works/charts')">
-          <svg-icon name="icon-photo" class="f1"></svg-icon>
-          <div class="mt1">图表</div>
-        </div>
-        <div class="mv4 tc" @click="$router.push('/works/chart/theme')">
-          <svg-icon name="icon-shape2" class="f1"></svg-icon>
-          <div class="mt1">主题</div>
+        <div
+          v-for="(item, i) in navs"
+          :key="i"
+          class="mv4 tc"
+          @click="onClick(item.pathname)"
+          :class="{ active: current === item.pathname }"
+        >
+          <svg-icon :name="item.icon" class="f1"></svg-icon>
+          <div class="mt1">{{ item.name }}</div>
         </div>
       </el-aside>
       <el-main>
@@ -31,3 +25,51 @@
     </el-container>
   </el-container>
 </template>
+
+<script>
+export default {
+  name: "work-layout",
+  data() {
+    return {
+      current: "",
+      navs: [
+        {
+          pathname: "chart_templates",
+          icon: "icon-conduc",
+          name: "图表库"
+        },
+        {
+          pathname: "sheets",
+          icon: "icon-data",
+          name: "数据源"
+        },
+        {
+          pathname: "charts",
+          icon: "icon-photo",
+          name: "图表"
+        },
+        {
+          pathname: "chart_theme",
+          icon: "icon-shape2",
+          name: "主题"
+        }
+      ]
+    };
+  },
+  methods: {
+    onClick(name) {
+      this.current = name;
+      this.$router.push({ name });
+    }
+  },
+  updated() {
+    console.log(this.$route);
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.active {
+  color: #357edd;
+}
+</style>
