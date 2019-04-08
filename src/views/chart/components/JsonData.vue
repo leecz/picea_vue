@@ -1,13 +1,12 @@
 <template>
   <div>
-    <div class="flex justify-end items-center">
-      <span class="mr1">关联数据 </span>
-    </div>
-    <div>
+    <div class="mv2">
       <el-button @click="onDataChange" type="success" size="small"
         >更新图表数据</el-button
       >
-      <div id="json-editor"></div>
+    </div>
+    <div>
+      <div id="json-editor" class="vh-50"></div>
     </div>
   </div>
 </template>
@@ -63,12 +62,20 @@ export default {
         options,
         this.jsonData
       );
+    },
+    removeAceElement() {
+      [...document.getElementsByClassName("jsoneditor-poweredBy")].forEach(
+        el => {
+          el.remove();
+        }
+      );
     }
   },
   mounted() {
     this.dataset = this.$store.getters.dataset;
     this.jsonData = this.dataset.source;
     this.initJsonEditor();
+    this.removeAceElement();
   }
 };
 </script>
