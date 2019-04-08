@@ -7,12 +7,14 @@ import auth from "./auth.module";
 import chart from "./modules/chart";
 import template from "./modules/template";
 import theme from "./modules/theme";
+import chartConfig from "./modules/chartConfig";
 
 export default new Vuex.Store({
   modules: {
     auth,
     chart,
     template,
-    theme
+    theme,
+    chartConfig
   }
 });

@@ -21,10 +21,10 @@
         <el-tab-pane label="图例">
           <legend-config></legend-config>
         </el-tab-pane>
-        <el-tab-pane label="X轴" v-if="currentConfig.orthogonal_coordinates">
+        <el-tab-pane label="X轴">
           <xaxis-config></xaxis-config>
         </el-tab-pane>
-        <el-tab-pane label="Y轴" v-if="currentConfig.orthogonal_coordinates">
+        <el-tab-pane label="Y轴">
           <yaxis-config></yaxis-config>
         </el-tab-pane>
         <el-tab-pane label="系列">
@@ -42,7 +42,7 @@ import TitleConfig from "./components/TitleConfig";
 import LegendConfig from "./components/LegendConfig";
 import XaxisConfig from "./components/XaxisConfig";
 import YaxisConfig from "./components/YaxisConfig";
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 import TooltipConfig from "./components/TooltipConfig";
 import DataSet from "./components/DataSet";
 import ChartHead from "./components/ChartHead";
@@ -67,7 +67,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentConfig", "isEdit"]),
     ...mapState({
       option: state => state.chart.option,
       dataset: state => state.chart.option.dataset,
@@ -86,8 +85,7 @@ export default {
   },
   methods: {
     init() {
-      let theme = this.isEdit ? this.theme : this.globalTheme;
-      this.chart = Echarts.init(document.getElementById("chart"), theme);
+      this.chart = Echarts.init(document.getElementById("chart"), this.theme);
     },
     setOption() {
       this.chart.setOption(this.option, true);

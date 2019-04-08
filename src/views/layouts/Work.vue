@@ -61,9 +61,6 @@ export default {
       this.current = name;
       this.$router.push({ name });
     }
-  },
-  updated() {
-    console.log(this.$route);
   }
 };
 </script>

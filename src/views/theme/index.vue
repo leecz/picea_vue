@@ -32,7 +32,7 @@ import { SET_THEME } from "@/store/mutations.type";
 export default {
   data() {
     return {
-      current: "macarons",
+      current: "",
       chart1: undefined,
       chart2: undefined,
       chart4: undefined,

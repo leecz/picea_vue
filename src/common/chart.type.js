@@ -1,15 +1,35 @@
+import sankey from "./echart-data/sankey";
+import Graph from "./echart-data/graph";
+const graph = JSON.parse(JSON.stringify(Graph));
+const categories = graph.categories.map(item => item.name);
+const nodes = graph.nodes.map(item => {
+  return {
+    ...item,
+    itemStyle: {},
+    symbolSize: item.value / 1.5,
+    label: {
+      normal: {
+        show: item.value > 10
+      }
+    }
+  };
+});
 const T = {
   LINE: "line",
   BAR: "bar",
   PIE: "pie",
   SCATTER: "scatter",
-  BUBBLE: "bubble",
-  MIXED: "mixed"
+  MIXED: "mixed",
+  SANKEY: "sankey",
+  GRAPH: "graph"
 };
 
 const CUSTOM_OPTION = {
+  // 直角坐标系中数据列与图表中的系列对应
   multi_series: true,
   same_series: true,
+  dataset: true,
+  data_type: "sheet",
   require_visual_map: false
 };
 
@@ -32,10 +52,7 @@ const charts = [
       },
       xAxis: { type: "category" },
       yAxis: {},
-      series: [{ type: "line" }, { type: "line" }, { type: "line" }],
-      custom: {
-        multi_series: true
-      }
+      series: [{ type: "line" }, { type: "line" }, { type: "line" }]
     }
   },
   {
@@ -60,10 +77,7 @@ const charts = [
         { type: "line", areaStyle: {} },
         { type: "line", areaStyle: {} },
         { type: "line", areaStyle: {} }
-      ],
-      custom: {
-        multi_series: true
-      }
+      ]
     }
   },
   {
@@ -88,10 +102,7 @@ const charts = [
         { type: "line", areaStyle: {}, stack: "stack" },
         { type: "line", areaStyle: {}, stack: "stack" },
         { type: "line", areaStyle: {}, stack: "stack" }
-      ],
-      custom: {
-        multi_series: true
-      }
+      ]
     }
   },
   {
@@ -112,10 +123,7 @@ const charts = [
       },
       xAxis: { type: "category" },
       yAxis: {},
-      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }],
-      custom: {
-        multi_series: true
-      }
+      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
     }
   },
   {
@@ -140,10 +148,7 @@ const charts = [
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" }
-      ],
-      custom: {
-        multi_series: true
-      }
+      ]
     }
   },
   {
@@ -164,11 +169,7 @@ const charts = [
       },
       yAxis: { type: "category" },
       xAxis: { type: "value" },
-      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }],
-      custom: {
-        multi_series: true,
-        same_series: true
-      }
+      series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
     }
   },
   {
@@ -193,11 +194,7 @@ const charts = [
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" },
         { type: "bar", stack: "stack" }
-      ],
-      custom: {
-        multi_series: true,
-        same_series: true
-      }
+      ]
     }
   },
   {
@@ -218,11 +215,7 @@ const charts = [
       },
       xAxis: { type: "category" },
       yAxis: {},
-      series: [{ type: "bar" }, { type: "bar" }, { type: "line" }],
-      custom: {
-        multi_series: true,
-        same_series: false
-      }
+      series: [{ type: "bar" }, { type: "bar" }, { type: "line" }]
     }
   },
   {
@@ -241,10 +234,7 @@ const charts = [
           ["六个核桃", 72.4]
         ]
       },
-      series: [{ type: "pie" }],
-      custom: {
-        multi_series: false
-      }
+      series: [{ type: "pie" }]
     }
   },
   {
@@ -263,10 +253,7 @@ const charts = [
           ["六个核桃", 72.4]
         ]
       },
-      series: [{ type: "pie", radius: ["50%", "70%"] }],
-      custom: {
-        multi_series: false
-      }
+      series: [{ type: "pie", radius: ["50%", "70%"] }]
     }
   },
   {
@@ -285,10 +272,7 @@ const charts = [
           ["六个核桃", 72.4]
         ]
       },
-      series: [{ type: "pie", roseType: "radius" }],
-      custom: {
-        multi_series: false
-      }
+      series: [{ type: "pie", roseType: "radius" }]
     }
   },
   {
@@ -328,7 +312,6 @@ const charts = [
   {
     type: T.SCATTER,
     type_name: "气泡图",
-    icon: "icon-fsux_qipaotu",
     option: {
       legend: {},
       tooltip: {},
@@ -348,11 +331,122 @@ const charts = [
           symbolSize: [10, 120]
         }
       },
-      series: [{ type: "scatter" }],
-      custom: {
-        multi_series: false,
-        visualMap: true
+      series: [{ type: "scatter" }]
+    }
+  },
+  {
+    type: T.SANKEY,
+    type_name: "桑基图",
+    option: {
+      legend: {},
+      tooltip: {},
+      dataset: {
+        source: sankey
+      },
+      series: [
+        {
+          type: "sankey",
+          data: sankey.nodes,
+          links: sankey.links,
+          focusNodeAdjacency: "allEdges",
+          itemStyle: {
+            normal: {
+              borderWidth: 1,
+              borderColor: "#aaa"
+            }
+          },
+          lineStyle: {
+            normal: {
+              color: "source",
+              curveness: 0.5
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    type: T.GRAPH,
+    type_name: "关系图",
+    option: {
+      tooltip: {},
+      legend: { data: categories },
+      dataset: {
+        source: graph
+      },
+      animationDuration: 1500,
+      animationEasingUpdate: "quinticInOut",
+      series: {
+        name: "Les Miserables",
+        type: "graph",
+        layout: "none",
+        data: nodes,
+        links: graph.links,
+        categories: graph.categories,
+        roam: true,
+        focusNodeAdjacency: true,
+        symbol: "circle",
+        itemStyle: {
+          normal: {
+            borderColor: "#fff",
+            borderWidth: 1,
+            shadowBlur: 10,
+            shadowColor: "rgba(0, 0, 0, 0.3)"
+          }
+        },
+        label: {
+          position: "right",
+          formatter: "{b}"
+        },
+        lineStyle: {
+          color: "source",
+          curveness: 0.3
+        },
+        emphasis: {
+          lineStyle: {
+            width: 10
+          }
+        }
       }
+    }
+  },
+  {
+    type: T.GRAPH,
+    type_name: "环形关系图",
+    option: {
+      tooltip: {},
+      legend: { data: categories },
+      dataset: {
+        source: graph
+      },
+      animationDurationUpdate: 1500,
+      animationEasingUpdate: "quinticInOut",
+      series: [
+        {
+          type: "graph",
+          layout: "circular",
+          circular: {
+            rotateLabel: true
+          },
+          data: nodes,
+          links: graph.links,
+          categories: graph.categories,
+          symbol: "circle",
+          roam: true,
+          label: {
+            normal: {
+              position: "right",
+              formatter: "{b}"
+            }
+          },
+          lineStyle: {
+            normal: {
+              color: "source",
+              curveness: 0.3
+            }
+          }
+        }
+      ]
     }
   }
 ];

@@ -30,8 +30,7 @@ const state = {
     },
     xAxis: { type: "category" },
     yAxis: {},
-    series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }],
-    custom: {}
+    series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }]
   },
   theme: undefined
 };
@@ -42,6 +41,9 @@ const getters = {
   },
   dataset(state) {
     return state.option.dataset;
+  },
+  currentType(state) {
+    return state.type;
   },
   isEdit(state) {
     return !!state.id;

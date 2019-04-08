@@ -10,9 +10,10 @@
   "dependencies": {
     "@handsontable/vue": "^4.0.0",
     "axios": "^0.18.0",
-    "echarts": "^4.1.0",
+    "echarts": "^4.2.1",
     "element-ui": "^2.6.1",
     "handsontable": "^7.0.0",
+    "jsoneditor": "^5.32.1",
     "lodash": "^4.17.11",
     "nprogress": "^0.2.0",
     "tachyons": "^4.11.1",
