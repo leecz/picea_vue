@@ -28,5 +28,10 @@ export default {
     multi_series: false,
     orthogonal_coordinates: false,
     data_type: "json"
+  },
+  radar: {
+    multi_series: false,
+    orthogonal_coordinates: false,
+    data_type: "json"
   }
 };

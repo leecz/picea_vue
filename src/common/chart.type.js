@@ -1,5 +1,6 @@
 import sankey from "./echart-data/sankey";
 import Graph from "./echart-data/graph";
+import Radar from "./echart-data/radar";
 const graph = JSON.parse(JSON.stringify(Graph));
 const categories = graph.categories.map(item => item.name);
 const nodes = graph.nodes.map(item => {
@@ -21,7 +22,8 @@ const T = {
   SCATTER: "scatter",
   MIXED: "mixed",
   SANKEY: "sankey",
-  GRAPH: "graph"
+  GRAPH: "graph",
+  RADAR: "radar"
 };
 
 const CUSTOM_OPTION = {
@@ -445,6 +447,55 @@ const charts = [
               curveness: 0.3
             }
           }
+        }
+      ]
+    }
+  },
+  {
+    type: T.RADAR,
+    type_name: "雷达图",
+    option: {
+      tooltip: {},
+      legend: {
+        data: ["预算分配（Allocated Budget）", "实际开销（Actual Spending）"]
+      },
+      dataset: {
+        source: Radar
+      },
+      radar: {
+        // shape: 'circle',
+        name: {
+          textStyle: {
+            color: "#fff",
+            backgroundColor: "#999",
+            borderRadius: 3,
+            padding: [3, 5]
+          }
+        },
+        indicator: [
+          { name: "销售（sales）", max: 50000 },
+          { name: "管理（Administration）", max: 50000 },
+          { name: "信息技术（Information Techology）", max: 50000 },
+          { name: "客服（Customer Support）", max: 50000 },
+          { name: "研发（Development）", max: 50000 },
+          { name: "市场（Marketing）", max: 50000 }
+        ]
+      },
+      series: [
+        {
+          name: "预算 vs 开销（Budget vs spending）",
+          type: "radar",
+          // areaStyle: {normal: {}},
+          data: [
+            {
+              value: [4300, 10000, 28000, 35000, 50000, 19000],
+              name: "预算分配（Allocated Budget）"
+            },
+            {
+              value: [5000, 14000, 28000, 31000, 42000, 21000],
+              name: "实际开销（Actual Spending）"
+            }
+          ]
         }
       ]
     }
