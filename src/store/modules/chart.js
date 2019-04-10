@@ -78,6 +78,42 @@ const actions = {
     commit(SET_CHART_ID, res.data.data);
     return res;
   },
+  updateRadarData({ state, commit }) {
+    let data = state.option.dataset.source;
+    if (!Array.isArray(data)) {
+      Message.error("数据匹配失败！");
+      return;
+    }
+    let max_val = _.max(data.map(el => el.value));
+    let legend_data = _.uniq(_.map(data, "s"));
+    let dims = _.uniq(_.map(data, "dim"));
+    let indicator = dims.map(dim => ({
+      name: dim,
+      max: max_val
+    }));
+    let series_data = legend_data.map(s => {
+      let value = dims.map(dim => {
+        let item = _.find(data, { dim, s }) || {};
+        return item.value || 0;
+      });
+      return {
+        name: s,
+        value
+      };
+    });
+    commit(UPDATE_OPTION, {
+      path: "legend.data",
+      value: legend_data
+    });
+    commit(UPDATE_OPTION, {
+      path: "radar.indicator",
+      value: indicator
+    });
+    commit(UPDATE_OPTION, {
+      path: "series.data",
+      value: series_data
+    });
+  },
   updateSankeyData({ state, commit }, series_index = 0) {
     let data = state.option.dataset.source;
     if (!data.nodes || !data.links) {
