@@ -1,18 +1,11 @@
 <template>
   <div>
-    <div class="mv2">
-      <el-button @click="onDataChange" type="success" size="small"
-        >更新图表数据</el-button
-      >
-    </div>
-    <div>
-      <div id="json-editor" class="vh-50"></div>
-    </div>
+    <div id="json-editor" class="vh-50"></div>
   </div>
 </template>
 
 <script>
-import { UPDATE_OPTION, RESET_CHART_SERIES } from "@/store/mutations.type";
+import { UPDATE_OPTION } from "@/store/mutations.type";
 
 import JSONEditor from "jsoneditor";
 
@@ -29,21 +22,10 @@ export default {
   },
   methods: {
     onDataChange() {
-      if (this.hotRef) {
-        this.$store.commit(UPDATE_OPTION, {
-          path: "dataset.source",
-          value: this.getSourceData()
-        });
-        this.$store.commit(RESET_CHART_SERIES);
-      }
-    },
-    onSelectChange() {
-      let sheet = this.datasheets.find(el => el.id === this.selectSheet);
       this.$store.commit(UPDATE_OPTION, {
         path: "dataset.source",
-        value: sheet.data.source
+        value: this.jsonData
       });
-      this.jsonData = sheet.data.source;
     },
     initJsonEditor() {
       const options = {
@@ -51,8 +33,8 @@ export default {
         onChange: () => {
           try {
             this.jsonData = this.editor.get();
+            this.onDataChange();
           } catch (error) {
-            this.error = error;
             console.log(error);
           }
         }

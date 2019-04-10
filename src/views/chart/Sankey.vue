@@ -15,6 +15,11 @@
         </el-tab-pane>
       </el-tabs>
     </template>
+    <template v-slot:data-column>
+      <el-button @click="updateChartData" type="success" size="small"
+        >更新图表数据</el-button
+      >
+    </template>
   </edit-base>
 </template>
 <script>
@@ -32,6 +37,11 @@ export default {
     LegendConfig,
     TooltipConfig,
     ColorConfig
+  },
+  methods: {
+    updateChartData() {
+      this.$store.dispatch("updateSankeyData");
+    }
   }
 };
 </script>

@@ -8,7 +8,9 @@
       </div>
       <div class="ba b--light-gray mr2 mt2 pa2">
         数据
-        <slot name="data-column"></slot>
+        <div class="flex justify-end align-center pa2">
+          <slot name="data-column"></slot>
+        </div>
         <data-set></data-set>
       </div>
     </div>

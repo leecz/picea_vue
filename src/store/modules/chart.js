@@ -11,6 +11,7 @@ import _ from "lodash";
 import { ChartService } from "@/common/api.service";
 import { CREATE_CHART, UPDATE_CHART } from "@/store/actions.type";
 import { CUSTOM_OPTION } from "@/common/chart.type";
+import { Message } from "element-ui";
 
 const state = {
   id: null,
@@ -76,6 +77,21 @@ const actions = {
     });
     commit(SET_CHART_ID, res.data.data);
     return res;
+  },
+  updateSankeyData({ state, commit }, series_index = 0) {
+    let data = state.option.dataset.source;
+    if (!data.nodes || !data.links) {
+      Message.error("数据匹配失败！");
+      return;
+    }
+    commit(UPDATE_OPTION, {
+      path: `series[${series_index}].data`,
+      value: data.nodes
+    });
+    commit(UPDATE_OPTION, {
+      path: `series[${series_index}].links`,
+      value: data.links
+    });
   }
 };
 
