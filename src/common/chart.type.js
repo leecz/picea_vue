@@ -423,32 +423,30 @@ const charts = [
       },
       animationDurationUpdate: 1500,
       animationEasingUpdate: "quinticInOut",
-      series: [
-        {
-          type: "graph",
-          layout: "circular",
-          circular: {
-            rotateLabel: true
-          },
-          data: nodes,
-          links: graph.links,
-          categories: graph.categories,
-          symbol: "circle",
-          roam: true,
-          label: {
-            normal: {
-              position: "right",
-              formatter: "{b}"
-            }
-          },
-          lineStyle: {
-            normal: {
-              color: "source",
-              curveness: 0.3
-            }
+      series: {
+        type: "graph",
+        layout: "circular",
+        circular: {
+          rotateLabel: true
+        },
+        data: nodes,
+        links: graph.links,
+        categories: graph.categories,
+        symbol: "circle",
+        roam: true,
+        label: {
+          normal: {
+            position: "right",
+            formatter: "{b}"
+          }
+        },
+        lineStyle: {
+          normal: {
+            color: "source",
+            curveness: 0.3
           }
         }
-      ]
+      }
     }
   },
   {

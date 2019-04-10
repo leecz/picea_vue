@@ -92,6 +92,42 @@ const actions = {
       path: `series[${series_index}].links`,
       value: data.links
     });
+  },
+  updateGraphData({ state, commit }) {
+    let { nodes, links, categories } = state.option.dataset.source;
+    if (!nodes || !links || !categories) {
+      Message.error("数据匹配失败！");
+      return;
+    }
+    let ratio = 1.5;
+    let filter_num = 10;
+    commit(UPDATE_OPTION, {
+      path: `series.data`,
+      value: nodes.map(item => {
+        return {
+          ...item,
+          itemStyle: {},
+          symbolSize: item.value / ratio,
+          label: {
+            normal: {
+              show: item.value > filter_num
+            }
+          }
+        };
+      })
+    });
+    commit(UPDATE_OPTION, {
+      path: `series.links`,
+      value: links
+    });
+    commit(UPDATE_OPTION, {
+      path: `series.categories`,
+      value: categories
+    });
+    commit(UPDATE_OPTION, {
+      path: `legend.data`,
+      value: categories.map(item => item.name)
+    });
   }
 };
 
