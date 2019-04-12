@@ -129,6 +129,12 @@ const actions = {
       value: data.links
     });
   },
+  updateLiquidFillData({ state, commit }) {
+    commit(UPDATE_OPTION, {
+      path: "series.data",
+      value: state.option.dataset.source
+    });
+  },
   updateGraphData({ state, commit }) {
     let { nodes, links, categories } = state.option.dataset.source;
     if (!nodes || !links || !categories) {

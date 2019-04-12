@@ -22,6 +22,7 @@
 
 <script>
 import Echarts from "echarts";
+import "echarts-liquidfill";
 import { mapState, mapGetters } from "vuex";
 import DataSet from "./DataSet";
 import ChartHead from "./ChartHead";

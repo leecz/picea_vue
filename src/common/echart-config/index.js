@@ -33,5 +33,9 @@ export default {
     multi_series: false,
     orthogonal_coordinates: false,
     data_type: "json"
+  },
+  liquidFill: {
+    orthogonal_coordinates: false,
+    data_type: "json"
   }
 };

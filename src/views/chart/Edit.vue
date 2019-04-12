@@ -11,6 +11,7 @@ import VPie from "./Pie";
 import VRadar from "./Radar";
 import VSankey from "./Sankey";
 import VScatter from "./Scatter";
+import VLiquidFill from "./LiquidFill";
 import { mapState } from "vuex";
 
 export default {
@@ -22,7 +23,8 @@ export default {
     VPie,
     VRadar,
     VSankey,
-    VScatter
+    VScatter,
+    VLiquidFill
   },
   computed: {
     ...mapState({

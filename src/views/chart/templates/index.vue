@@ -18,9 +18,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { SET_CHART } from "@/store/mutations.type";
 import echarts from "echarts";
-import { mapState } from "vuex";
+import "echarts-liquidfill";
 import _ from "lodash";
 export default {
   data() {

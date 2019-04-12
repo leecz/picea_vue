@@ -23,7 +23,8 @@ const T = {
   MIXED: "mixed",
   SANKEY: "sankey",
   GRAPH: "graph",
-  RADAR: "radar"
+  RADAR: "radar",
+  LIQUIDFILL: "liquidFill"
 };
 
 const CUSTOM_OPTION = {
@@ -493,6 +494,19 @@ const charts = [
             name: "实际开销（Actual Spending）"
           }
         ]
+      }
+    }
+  },
+  {
+    type: "liquidFill",
+    type_name: "水球图",
+    option: {
+      dataset: {
+        source: [0.6]
+      },
+      series: {
+        type: "liquidFill",
+        data: [0.6]
       }
     }
   }
