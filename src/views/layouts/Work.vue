@@ -19,8 +19,8 @@
           <div class="mt1">{{ item.name }}</div>
         </div>
       </el-aside>
-      <el-main>
-        <router-view />
+      <el-main style="padding: 0;">
+        <router-view style="padding: 20px;" />
       </el-main>
     </el-container>
   </el-container>

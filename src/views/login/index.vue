@@ -139,16 +139,19 @@ $dark_gray: #889aa4;
 $light_gray: #eee;
 
 .login-container {
-  min-height: 100%;
+  min-height: calc(100vh - 60px);
   width: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f1f1;
   .login-form {
     position: relative;
     background-color: $bg;
     width: 420px;
     max-width: 100%;
     padding: 60px 35px 0;
-    margin: 0 auto;
     overflow: hidden;
   }
   .title-container {

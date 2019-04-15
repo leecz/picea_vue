@@ -34,7 +34,8 @@ export default new Router({
         {
           path: "",
           name: "works",
-          component: () => import("@/views/works")
+          redirect: "chart/templates"
+          // component: () => import("@/views/works")
         },
         {
           path: "sheets",
