@@ -59,6 +59,11 @@ export default new Router({
           component: () => import("@/views/chart/Edit")
         },
         {
+          path: "chart/show",
+          name: "chart_show",
+          component: () => import("@/views/chart/show/index")
+        },
+        {
           path: "chart/wordcloud/edit",
           name: "chart_wordcloud_edit",
           component: () => import("@/views/chart/WordCloud")

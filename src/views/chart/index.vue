@@ -9,7 +9,7 @@
       >
         <div :id="`chart-${item.id}`" class="w-100" style="height: 250px"></div>
         <div class="flex justify-around">
-          <el-button size="mini" @click="onEditClick(item)">预览</el-button>
+          <el-button size="mini" @click="onShowClick(item)">预览</el-button>
           <el-button size="mini" @click="onEditClick(item)">编辑</el-button>
         </div>
       </div>
@@ -21,7 +21,7 @@
 import { ChartsService } from "@/common/api.service";
 import echarts from "echarts";
 import _ from "lodash";
-import { SET_CHART, SET_THEME } from "@/store/mutations.type";
+import { SET_CHART } from "@/store/mutations.type";
 
 export default {
   name: "chart-index",
@@ -32,9 +32,12 @@ export default {
   },
   methods: {
     onEditClick(chart) {
-      this.$store.commit(SET_THEME, chart.theme);
       this.$store.commit(SET_CHART, { ...chart });
       this.$router.push({ name: "chart_edit" });
+    },
+    onShowClick(chart) {
+      this.$store.commit(SET_CHART, { ...chart });
+      this.$router.push({ name: "chart_show" });
     },
     renderChart() {
       this.dataset.forEach(chart => {

@@ -193,12 +193,13 @@ const mutations = {
   [SET_CHART_ID](state, id) {
     state.id = id;
   },
-  [SET_CHART](state, { id, name, type, type_name, option }) {
+  [SET_CHART](state, { id, name, type, type_name, option, theme }) {
     state.name = name;
     state.id = id;
     state.type = type;
     state.type_name = type_name;
     state.option = option;
+    state.theme = theme;
   },
   [RESET_CHART_SERIES](state) {
     let custom = Object.assign({}, CUSTOM_OPTION, state.option.custom);
