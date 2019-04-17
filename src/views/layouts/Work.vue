@@ -31,7 +31,9 @@
           <div class="mt1">{{ item.name }}</div>
         </div>
       </el-aside>
-      <el-main style="padding: 0;">
+      <el-main
+        style="padding: 0; height: calc(100vh - 60px); overflow: scroll;"
+      >
         <router-view style="padding: 20px;" />
       </el-main>
     </el-container>
