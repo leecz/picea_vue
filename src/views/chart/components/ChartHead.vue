@@ -14,6 +14,15 @@
       <el-button type="primary" @click="onSubmit" size="small" round>
         保存
       </el-button>
+      <el-button
+        v-if="isEdit"
+        type="success"
+        @click="onShow"
+        size="small"
+        round
+      >
+        导出
+      </el-button>
     </div>
   </div>
 </template>
@@ -45,6 +54,9 @@ export default {
         .catch(e => {
           this.$message(e);
         });
+    },
+    onShow() {
+      this.$router.push({ name: "chart_show" });
     }
   },
   mounted() {
