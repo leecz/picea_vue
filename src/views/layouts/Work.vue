@@ -1,7 +1,19 @@
 <template>
   <el-container class="vh-100">
-    <el-header class="bg-blue flex items-center">
+    <el-header class="bg-blue flex items-center justify-between">
       <div class="white f3">云杉微视</div>
+      <div class="mr2">
+        <el-dropdown @command="handleCommand">
+          <span class="ph3 f5 pointer white ">
+            {{ user.username }}<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item divided command="exit">
+              退出
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </el-header>
     <el-container>
       <el-aside
@@ -27,6 +39,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { PURGE_AUTH } from "@/store/mutations.type";
 export default {
   name: "work-layout",
   data() {
@@ -56,10 +70,26 @@ export default {
       ]
     };
   },
+  computed: {
+    ...mapState({
+      user: state => state.auth.user
+    })
+  },
   methods: {
     onClick(name) {
       this.current = name;
       this.$router.push({ name });
+    },
+    handleCommand(cmd) {
+      switch (cmd) {
+        case "exit":
+          this.exitCommand();
+          break;
+      }
+    },
+    exitCommand() {
+      this.$store.commit(PURGE_AUTH);
+      this.$router.push({ name: "login" });
     }
   }
 };
