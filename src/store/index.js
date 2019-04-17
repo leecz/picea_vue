@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import createPersistedState from "vuex-persistedstate";
+
 Vue.use(Vuex);
 
 import auth from "./auth.module";
@@ -16,5 +18,15 @@ export default new Vuex.Store({
     template,
     theme,
     chartConfig
-  }
+  },
+  plugins: [
+    createPersistedState({
+      storage: window.sessionStorage,
+      reducer: state => ({
+        auth: state.auth,
+        chart: state.chart,
+        theme: state.theme
+      })
+    })
+  ]
 });
