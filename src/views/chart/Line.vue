@@ -26,7 +26,7 @@
             <el-option
               v-for="(item, i) in series"
               :key="i"
-              :label="`系列 - ${i}`"
+              :label="`系列 - ${i + 1}`"
               :value="i"
             >
             </el-option>
