@@ -17,6 +17,24 @@
           <yaxis-config></yaxis-config>
         </el-tab-pane>
         <el-tab-pane label="系列">
+          <el-select
+            v-model="seriesIndex"
+            placeholder="请选择数据列"
+            size="small"
+            style="width: 100%;"
+          >
+            <el-option
+              v-for="(item, i) in series"
+              :key="i"
+              :label="`系列 - ${i}`"
+              :value="i"
+            >
+            </el-option>
+          </el-select>
+          <line-config
+            :seriesIndex="seriesIndex"
+            :key="seriesIndex"
+          ></line-config>
           <color-config></color-config>
         </el-tab-pane>
       </el-tabs>
@@ -24,6 +42,7 @@
   </edit-base>
 </template>
 <script>
+import { mapState } from "vuex";
 import EditBase from "./components/EditBase";
 import GridConfig from "./components/GridConfig";
 import TitleConfig from "./components/TitleConfig";
@@ -32,6 +51,8 @@ import XaxisConfig from "./components/XaxisConfig";
 import YaxisConfig from "./components/YaxisConfig";
 import TooltipConfig from "./components/TooltipConfig";
 import ColorConfig from "./components/ColorConfig";
+
+import LineConfig from "./components/series/LineConfig";
 export default {
   components: {
     EditBase,
@@ -41,7 +62,18 @@ export default {
     XaxisConfig,
     YaxisConfig,
     TooltipConfig,
-    ColorConfig
+    ColorConfig,
+    LineConfig
+  },
+  data() {
+    return {
+      seriesIndex: 0
+    };
+  },
+  computed: {
+    ...mapState({
+      series: state => state.chart.option.series
+    })
   }
 };
 </script>

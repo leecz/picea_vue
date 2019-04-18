@@ -77,6 +77,12 @@ export default {
 };
 </script>
 
+<style>
+.edit-bar .el-form-item--mini.el-form-item {
+  margin-bottom: 12px;
+}
+</style>
+
 <style lang="scss" scoped>
 .chart-edit {
   min-height: calc(100vh - 100px);
