@@ -17,6 +17,24 @@
           <yaxis-config></yaxis-config>
         </el-tab-pane>
         <el-tab-pane label="系列">
+          <el-select
+            v-model="seriesIndex"
+            placeholder="请选择数据列"
+            size="small"
+            style="width: 100%;"
+          >
+            <el-option
+              v-for="(item, i) in series"
+              :key="i"
+              :label="`系列 - ${i + 1}`"
+              :value="i"
+            >
+            </el-option>
+          </el-select>
+          <scatter-config
+            :seriesIndex="seriesIndex"
+            :key="seriesIndex"
+          ></scatter-config>
           <color-config></color-config>
         </el-tab-pane>
       </el-tabs>
@@ -32,6 +50,8 @@ import XaxisConfig from "./components/XaxisConfig";
 import YaxisConfig from "./components/YaxisConfig";
 import TooltipConfig from "./components/TooltipConfig";
 import ColorConfig from "./components/ColorConfig";
+import editMixin from "./mixins/editMixin";
+import ScatterConfig from "./components/series/ScatterConfig";
 export default {
   components: {
     EditBase,
@@ -41,7 +61,9 @@ export default {
     XaxisConfig,
     YaxisConfig,
     TooltipConfig,
-    ColorConfig
-  }
+    ColorConfig,
+    ScatterConfig
+  },
+  mixins: [editMixin]
 };
 </script>
