@@ -11,6 +11,24 @@
           <legend-config></legend-config>
         </el-tab-pane>
         <el-tab-pane label="系列">
+          <el-select
+            v-model="seriesIndex"
+            placeholder="请选择数据列"
+            size="small"
+            style="width: 100%;"
+          >
+            <el-option
+              v-for="(item, i) in series"
+              :key="i"
+              :label="`系列 - ${i + 1}`"
+              :value="i"
+            >
+            </el-option>
+          </el-select>
+          <pie-config
+            :seriesIndex="seriesIndex"
+            :key="seriesIndex"
+          ></pie-config>
           <color-config></color-config>
         </el-tab-pane>
       </el-tabs>
@@ -24,6 +42,9 @@ import TitleConfig from "./components/TitleConfig";
 import LegendConfig from "./components/LegendConfig";
 import TooltipConfig from "./components/TooltipConfig";
 import ColorConfig from "./components/ColorConfig";
+import editMixin from "./mixins/editMixin";
+import PieConfig from "./components/series/PieConfig";
+
 export default {
   components: {
     EditBase,
@@ -31,7 +52,9 @@ export default {
     TitleConfig,
     LegendConfig,
     TooltipConfig,
-    ColorConfig
-  }
+    ColorConfig,
+    PieConfig
+  },
+  mixins: [editMixin]
 };
 </script>
