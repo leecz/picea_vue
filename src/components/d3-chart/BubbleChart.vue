@@ -1,6 +1,6 @@
 <template>
   <svg ref="chart" :width="width" :height="height">
-    <g>
+    <g id="root-group">
       <circle
         v-for="c in nodes"
         :r="c.radius"
@@ -129,10 +129,18 @@ export default {
     },
     genOptions() {
       this.options = Object.assign(defaultOption, { ...this.option });
+    },
+    setZoom() {
+      this.svg.call(
+        d3.zoom().on("zoom", () => {
+          this.svg.select("#root-group").attr("transform", d3.event.transform);
+        })
+      );
     }
   },
   mounted() {
     this.renderChart();
+    this.setZoom();
   }
 };
 </script>
