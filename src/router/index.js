@@ -40,6 +40,7 @@ export default new Router({
         },
         {
           path: "d3",
+          name: "d3_chart",
           component: () => import("@/views/d3-chart/index")
         },
         {

@@ -23,7 +23,7 @@
         <div
           v-for="(item, i) in navs"
           :key="i"
-          class="mv4 tc"
+          class="mv3 tc"
           @click="onClick(item.pathname)"
           :class="{ active: current === item.pathname }"
         >
@@ -52,7 +52,12 @@ export default {
         {
           pathname: "chart_templates",
           icon: "icon-conduc",
-          name: "图表库"
+          name: "Echarts图表"
+        },
+        {
+          pathname: "d3_chart",
+          icon: "icon-lab",
+          name: "D3图表"
         },
         {
           pathname: "sheets",
@@ -62,7 +67,7 @@ export default {
         {
           pathname: "charts",
           icon: "icon-photo",
-          name: "图表"
+          name: "我的图表"
         },
         {
           pathname: "chart_theme",
