@@ -1,30 +1,32 @@
 <template>
   <svg ref="chart" :width="width" :height="height">
-    <g v-for="c in nodes" :key="c.data.id">
-      <circle
-        :r="c.r"
-        :cx="c.x"
-        :cy="c.y"
-        class="pack-flat-chart-node"
-        :id="`node-${c.data.id}`"
-        :fill="color"
-      ></circle>
-      <clipPath :id="`clip-${c.data.id}`">
-        <use :xlink:href="`#node-${c.data.id}`"></use>
-      </clipPath>
-      <text
-        v-if="!options.thumb"
-        :clip-path="`url(#clip-${c.data.id})`"
-        :x="c.x"
-        :y="c.y"
-        dy=".3em"
-        text-anchor="middle"
-      >
-        {{ c.data.name }}
-      </text>
-      <title>
-        {{ c.data.name + ":" + c.data.value }}
-      </title>
+    <g id="root-group">
+      <g v-for="c in nodes" :key="c.data.id">
+        <circle
+          :r="c.r"
+          :cx="c.x"
+          :cy="c.y"
+          class="pack-flat-chart-node"
+          :id="`node-${c.data.id}`"
+          :fill="color"
+        ></circle>
+        <clipPath :id="`clip-${c.data.id}`">
+          <use :xlink:href="`#node-${c.data.id}`"></use>
+        </clipPath>
+        <text
+          v-if="!options.thumb"
+          :clip-path="`url(#clip-${c.data.id})`"
+          :x="c.x"
+          :y="c.y"
+          dy=".3em"
+          text-anchor="middle"
+        >
+          {{ c.data.name }}
+        </text>
+        <title>
+          {{ c.data.name + ":" + c.data.value }}
+        </title>
+      </g>
     </g>
   </svg>
 </template>
@@ -113,9 +115,18 @@ export default {
     },
     genOptions() {
       this.options = Object.assign(defaultOption, { ...this.option });
+    },
+    setZoom() {
+      this.svg.call(
+        d3.zoom().on("zoom", () => {
+          this.svg.select("#root-group").attr("transform", d3.event.transform);
+        })
+      );
     }
   },
-  mounted() {}
+  mounted() {
+    this.setZoom();
+  }
 };
 </script>
 

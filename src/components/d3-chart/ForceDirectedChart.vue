@@ -1,25 +1,27 @@
 <template>
   <svg ref="chart" :width="width" :height="height">
-    <g stroke="#999" stroke-opacity="0.6">
-      <line
-        v-for="l in links"
-        :key="l.id"
-        class="force-chart-link"
-        :stroke-width="l.lineWidth"
-      ></line>
-    </g>
-    <g>
-      <circle
-        v-for="c in nodes"
-        :r="5"
-        :key="c.id"
-        :cx="c.x || 0"
-        :cy="c.y || 0"
-        class="force-chart-node"
-        :fill="color(c.group)"
-      >
-        <title>{{ c.id }}</title>
-      </circle>
+    <g id="root-group">
+      <g stroke="#999" stroke-opacity="0.6">
+        <line
+          v-for="l in links"
+          :key="l.id"
+          class="force-chart-link"
+          :stroke-width="l.lineWidth"
+        ></line>
+      </g>
+      <g>
+        <circle
+          v-for="c in nodes"
+          :r="5"
+          :key="c.id"
+          :cx="c.x || 0"
+          :cy="c.y || 0"
+          class="force-chart-node"
+          :fill="color(c.group)"
+        >
+          <title>{{ c.id }}</title>
+        </circle>
+      </g>
     </g>
   </svg>
 </template>
@@ -117,23 +119,30 @@ export default {
       this.circles.attr("cx", d => d.x).attr("cy", d => d.y);
     },
     genNodes() {
-      let linkWidth = d3
+      let widthScale = d3
         .scaleLinear()
         .domain(d3.extent(this.dataset.links, d => d.value))
         .range([this.options.minLineWidth, this.options.maxLineWidth]);
       this.nodes = this.dataset.nodes.map(item => ({ ...item }));
       this.links = this.dataset.links.map(item => ({
         ...item,
-        lineWidth: linkWidth(item.value)
+        lineWidth: widthScale(item.value)
       }));
     },
     genOptions() {
       this.options = Object.assign(defaultOption, { ...this.option });
+    },
+    setZoom() {
+      this.svg.call(
+        d3.zoom().on("zoom", () => {
+          this.svg.select("#root-group").attr("transform", d3.event.transform);
+        })
+      );
     }
   },
   mounted() {
     this.renderChart();
-    this.drag();
+    this.setZoom();
   }
 };
 </script>
