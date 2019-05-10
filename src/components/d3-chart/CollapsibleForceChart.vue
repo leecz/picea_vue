@@ -1,25 +1,27 @@
 <template>
   <svg ref="chart" :width="width" :height="height">
-    <g stroke="#999" stroke-opacity="0.6">
-      <line
-        v-for="l in links"
-        :key="l.id"
-        class="collapsible-force-link"
-        :stroke-width="2"
-      ></line>
-    </g>
-    <g>
-      <circle
-        v-for="c in nodes"
-        :r="c.data.radius || 2"
-        :key="c.id"
-        :cx="c.x || 0"
-        :cy="c.y || 0"
-        class="collapsible-force-node"
-        :fill="c.data.isLeaf ? '#fd8d3c' : '#c6dbef'"
-      >
-        <title>{{ c.data.name + ":" + c.data.value }}</title>
-      </circle>
+    <g id="root-group">
+      <g stroke="#999" stroke-opacity="0.6">
+        <line
+          v-for="l in links"
+          :key="l.id"
+          class="collapsible-force-link"
+          :stroke-width="2"
+        ></line>
+      </g>
+      <g>
+        <circle
+          v-for="c in nodes"
+          :r="c.data.radius || 2"
+          :key="c.id"
+          :cx="c.x || 0"
+          :cy="c.y || 0"
+          class="collapsible-force-node"
+          :fill="c.data.isLeaf ? '#fd8d3c' : '#c6dbef'"
+        >
+          <title>{{ c.data.name + ":" + c.data.value }}</title>
+        </circle>
+      </g>
     </g>
   </svg>
 </template>
@@ -93,16 +95,13 @@ export default {
     genOptions() {
       this.options = Object.assign(defaultOption, { ...this.option });
     },
-    // setZoom() {
-    //   let zoom = this.svg.call(
-    //     d3.zoom().on("zoom", () => {
-    //       this.svg.attr(
-    //         "transform",
-    //         d3.event.transform
-    //       );
-    //     })
-    //   );
-    // },
+    setZoom() {
+      this.svg.call(
+        d3.zoom().on("zoom", () => {
+          this.svg.select("#root-group").attr("transform", d3.event.transform);
+        })
+      );
+    },
     renderChart() {
       this.simulation
         .force("link", d3.forceLink(this.links).id(d => d.id))
@@ -151,7 +150,7 @@ export default {
     }
   },
   mounted() {
-    // this.setZoom();
+    this.setZoom();
     this.renderChart();
   }
 };
