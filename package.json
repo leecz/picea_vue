@@ -10,6 +10,7 @@
   "dependencies": {
     "@handsontable/vue": "^4.0.0",
     "axios": "^0.18.0",
+    "d3": "^5.9.2",
     "echarts": "^4.2.1",
     "echarts-liquidfill": "^2.0.4",
     "echarts-wordcloud": "^1.1.3",
