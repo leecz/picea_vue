@@ -1,10 +1,14 @@
 <template>
   <div>
-    d3 图表
+    <div class="f3">d3 图表</div>
+    <div class="f6 mt3">图表编辑功能正在完善中...</div>
     <div class="flex flex-wrap chart-items">
       <div>
         <bubble-chart :width="250" :height="250"></bubble-chart>
       </div>
+      <!-- <div>
+        <bubble-ring-chart :width="250" :height="250"></bubble-ring-chart>
+      </div> -->
       <div>
         <pack-flat-chart
           :width="250"
@@ -35,6 +39,7 @@ import {
   WordCloud,
   ForceDirectedChart,
   CollapsibleForceChart
+  // BubbleRingChart
 } from "@/components/d3-chart";
 export default {
   components: {
@@ -43,6 +48,7 @@ export default {
     WordCloud,
     ForceDirectedChart,
     CollapsibleForceChart
+    // BubbleRingChart
   },
   data() {
     return {
