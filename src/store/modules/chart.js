@@ -9,8 +9,11 @@ import {
 } from "../mutations.type";
 import _ from "lodash";
 import { ChartService } from "@/common/api.service";
-import { CREATE_CHART, UPDATE_CHART } from "@/store/actions.type";
-import { CUSTOM_OPTION } from "@/common/chart.type";
+import {
+  CREATE_CHART,
+  UPDATE_CHART,
+  SET_CHART_SERIES
+} from "@/store/actions.type";
 import { Message } from "element-ui";
 
 const state = {
@@ -77,6 +80,9 @@ const actions = {
     });
     commit(SET_CHART_ID, res.data.data);
     return res;
+  },
+  [SET_CHART_SERIES]({ commit, getters }) {
+    commit(RESET_CHART_SERIES, getters.currentConfig);
   },
   updateRadarData({ state, commit }) {
     let data = state.option.dataset.source;
@@ -201,9 +207,8 @@ const mutations = {
     state.option = option;
     state.theme = theme;
   },
-  [RESET_CHART_SERIES](state) {
-    let custom = Object.assign({}, CUSTOM_OPTION, state.option.custom);
-    if (!custom.multi_series) {
+  [RESET_CHART_SERIES](state, config) {
+    if (config.fixed_column) {
       return;
     }
     // 默认数据的第一行为维度
@@ -218,12 +223,6 @@ const mutations = {
     } else {
       _.times(demLen - serLen, state.option.series.push(oldSeries[0]));
     }
-    // }
-    // if (state.type === T.MIXED) {
-    //   let seri = state.option.series.pop();
-    //   seri.type = oldSeries[0].type === "line" ? "bar" : "line";
-    //   state.option.series.push(seri);
-    // }
     state.option = Object.assign({}, state.option);
   }
 };

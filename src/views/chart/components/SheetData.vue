@@ -24,7 +24,8 @@
 <script>
 import { HotTable } from "@handsontable/vue";
 import "handsontable/languages/zh-CN";
-import { UPDATE_OPTION, RESET_CHART_SERIES } from "@/store/mutations.type";
+import { UPDATE_OPTION } from "@/store/mutations.type";
+import { SET_CHART_SERIES } from "@/store/actions.type";
 
 import { SheetService } from "@/common/api.service";
 
@@ -70,7 +71,7 @@ export default {
           path: "dataset.source",
           value: this.getSourceData()
         });
-        this.$store.commit(RESET_CHART_SERIES);
+        this.$store.dispatch(SET_CHART_SERIES);
       }
     },
     getDataList() {
