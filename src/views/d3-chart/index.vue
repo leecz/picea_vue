@@ -3,59 +3,40 @@
     <div class="f3">d3 图表</div>
     <div class="f6 mt3">图表编辑功能正在完善中...</div>
     <div class="flex flex-wrap chart-items">
-      <div>
-        <bubble-chart :width="250" :height="250"></bubble-chart>
-      </div>
-      <!-- <div>
-        <bubble-ring-chart :width="250" :height="250"></bubble-ring-chart>
-      </div> -->
-      <div>
-        <pack-flat-chart
+      <div
+        v-for="(chart, name, i) in D3Chart"
+        :key="i"
+        @click.stop="onClick(name)"
+      >
+        <component
+          :is="chart"
           :width="250"
           :height="250"
           :option="option"
-        ></pack-flat-chart>
-      </div>
-      <div>
-        <force-directed-chart :width="250" :height="250"></force-directed-chart>
-      </div>
-      <div>
-        <collapsible-force-chart
-          :width="200"
-          :height="200"
-        ></collapsible-force-chart>
-      </div>
-      <div>
-        <word-cloud :width="250" :height="250"></word-cloud>
+          :dataset="D3Data[name]"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {
-  BubbleChart,
-  PackFlatChart,
-  WordCloud,
-  ForceDirectedChart,
-  CollapsibleForceChart
-  // BubbleRingChart
-} from "@/components/d3-chart";
+import D3Chart from "@/components/d3-chart";
+import D3Data from "@/components/d3-chart/data";
 export default {
-  components: {
-    BubbleChart,
-    PackFlatChart,
-    WordCloud,
-    ForceDirectedChart,
-    CollapsibleForceChart
-    // BubbleRingChart
-  },
   data() {
     return {
+      D3Chart,
+      D3Data,
       option: {
         thumb: true
       }
     };
+  },
+  methods: {
+    onClick(chart) {
+      this.$router.push({ name: "d3_chart_show", params: { name: chart } });
+    }
   }
 };
 </script>

@@ -5,7 +5,7 @@ import ForceDirectedChart from "./ForceDirectedChart";
 import CollapsibleForceChart from "./CollapsibleForceChart";
 // import BubbleRingChart from "./BubbleRingChart";
 
-export {
+export default {
   BubbleChart,
   PackFlatChart,
   WordCloud,
