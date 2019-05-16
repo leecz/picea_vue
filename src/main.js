@@ -29,6 +29,11 @@ Vue.component("PercentSlider", PercentSlider);
 
 import "./common/theme.config";
 
+import D3Chart from "@/components/d3-chart";
+Object.keys(D3Chart).forEach(key => {
+  Vue.component(key, D3Chart[key]);
+});
+
 new Vue({
   router,
   store,

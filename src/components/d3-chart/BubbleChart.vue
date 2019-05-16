@@ -18,18 +18,9 @@
 import * as d3 from "d3";
 const defaultOption = {
   minRadius: 1,
-  maxRadius: 10,
+  maxRadius: 20,
   colors: d3.schemeCategory10
 };
-function genData() {
-  return d3.range(200).map((_, i) => {
-    let item = {};
-    item.value = Math.floor(Math.random() * Math.sqrt(i));
-    item.group = Math.floor(Math.random() * i) % 2;
-    item.id = i;
-    return item;
-  });
-}
 export default {
   name: "force-chart",
   props: {
@@ -47,7 +38,7 @@ export default {
     },
     dataset: {
       type: Array,
-      default: () => genData()
+      default: () => []
     }
   },
   data() {
@@ -86,6 +77,7 @@ export default {
       immediate: true,
       handler() {
         this.genNodes();
+        this.renderChart();
       }
     }
   },
@@ -139,7 +131,6 @@ export default {
     }
   },
   mounted() {
-    this.renderChart();
     this.setZoom();
   }
 };
