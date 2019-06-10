@@ -44,9 +44,9 @@ export default new Router({
           component: () => import("@/views/d3-chart/index")
         },
         {
-          path: "d3/show/:name",
-          name: "d3_chart_show",
-          component: () => import("@/views/d3-chart/Show")
+          path: "d3/edit/:name",
+          name: "d3_chart_edit",
+          component: () => import("@/views/d3-chart/Edit")
         },
         {
           path: "sheets",

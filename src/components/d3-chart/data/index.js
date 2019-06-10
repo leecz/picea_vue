@@ -10,11 +10,12 @@ const PackFlatChart = d3.range(200).map((_, i) => {
   return item;
 });
 const BubbleChart = d3.range(200).map((_, i) => {
-  let item = {};
-  item.value = Math.floor(Math.random() * Math.sqrt(i));
-  item.group = Math.floor(Math.random() * i) % 2;
-  item.id = i;
-  return item;
+  return {
+    value: Math.floor(Math.random() * i),
+    group: Math.floor(Math.random() * i) % 2,
+    id: i,
+    name: "name" + i
+  };
 });
 const WordCloud = [
   "HTML",

@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     onClick(chart) {
-      this.$router.push({ name: "d3_chart_show", params: { name: chart } });
+      this.$router.push({ name: "d3_chart_edit", params: { name: chart } });
     }
   }
 };

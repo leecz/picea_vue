@@ -1,15 +1,34 @@
 <template>
   <svg ref="chart" :width="width" :height="height">
     <g id="root-group">
-      <circle
-        v-for="c in nodes"
-        :r="c.radius"
-        :key="c.id"
-        :cx="c.x || 0"
-        :cy="c.y || 0"
-        class="bubble-chart-node"
-        :fill="color(c.group)"
-      ></circle>
+      <g v-for="(c, i) in nodes" :key="i">
+        <circle
+          :r="c.radius"
+          class="bubble-chart-node"
+          :id="`bubble-node-${i}`"
+          :fill="color(c.group)"
+        ></circle>
+        <clipPath :id="`bubble-clip-${i}`">
+          <use :xlink:href="`#bubble-node-${i}`"></use>
+        </clipPath>
+        <text
+          v-if="!options.thumb"
+          v-show="c.showLabel"
+          :clip-path="`url(#bubble-clip-${i})`"
+          class="bubble-chart-text"
+          :x="c.x"
+          :y="c.y"
+          fill="#fff"
+          style="font-size: 10px;"
+          dy=".3em"
+          text-anchor="middle"
+        >
+          {{ c.name }}
+        </text>
+        <title>
+          {{ c.name + " : " + c.value }}
+        </title>
+      </g>
     </g>
   </svg>
 </template>
@@ -17,12 +36,23 @@
 <script>
 import * as d3 from "d3";
 const defaultOption = {
+  chart: "BubbleChart",
   minRadius: 1,
   maxRadius: 20,
-  colors: d3.schemeCategory10
+  thumb: false,
+  labelValue: 100,
+  colors: d3.schemeCategory10,
+  forceProps: {
+    collide: {
+      enabled: true,
+      strength: 0.7,
+      iterations: 1,
+      radius: 1
+    }
+  }
 };
 export default {
-  name: "force-chart",
+  name: "bubble-chart",
   props: {
     width: {
       type: Number,
@@ -51,6 +81,9 @@ export default {
     circles() {
       return this.svg.selectAll(".bubble-chart-node").data(this.nodes);
     },
+    text() {
+      return this.svg.selectAll(".bubble-chart-text").data(this.nodes);
+    },
     simulation() {
       return d3.forceSimulation().nodes(this.nodes);
     },
@@ -70,6 +103,8 @@ export default {
       immediate: true,
       handler() {
         this.genOptions();
+        this.genNodes();
+        this.renderChart();
       }
     },
     dataset: {
@@ -83,19 +118,23 @@ export default {
   },
   methods: {
     charge_force() {
-      return d3.forceManyBody().strength(20);
+      return d3.forceManyBody().strength();
     },
     center_force() {
       return d3.forceCenter(this.width / 2, this.height / 2);
     },
     x_force() {
-      return d3.forceX().x(d => d.group * 100);
+      return d3.forceX();
     },
     y_force() {
-      return d3.forceY().y(d => d.group);
+      return d3.forceY();
     },
     collide_force() {
-      return d3.forceCollide().radius(d => d.radius + 1);
+      let collide = this.options.forceProps.collide;
+      return d3
+        .forceCollide()
+        .radius(d => d.radius + 1)
+        .strength(collide.strength);
     },
     renderChart() {
       this.simulation
@@ -108,6 +147,7 @@ export default {
     },
     tick() {
       this.circles.attr("cx", d => d.x).attr("cy", d => d.y);
+      this.text.attr("x", d => d.x).attr("y", d => d.y);
     },
     genNodes() {
       let radius = d3
@@ -115,8 +155,9 @@ export default {
         .domain(d3.extent(this.dataset, d => d.value))
         .range([this.options.minRadius, this.options.maxRadius]);
       this.nodes = this.dataset.map(item => {
-        let r = radius(item.value);
-        return { ...item, radius: r };
+        let r = radius(item.value) || 1;
+        let showLabel = item.value > this.options.labelValue;
+        return { ...item, radius: r, showLabel };
       });
     },
     genOptions() {
