@@ -39,6 +39,9 @@ import ChartHead from "./components/ChartHead";
 
 import BubbleChartEdit from "./components/edit/BubbleChartEdit";
 import PackFlatChartEdit from "./components/edit/PackFlatChartEdit";
+import WordCloudEdit from "./components/edit/WordCloudEdit";
+import ForceDirectedChartEdit from "./components/edit/ForceDirectedChartEdit";
+import CollapsibleForceChartEdit from "./components/edit/CollapsibleForceChartEdit";
 import { DchartsService } from "@/common/api.service";
 export default {
   name: "d3-edit",
@@ -46,6 +49,9 @@ export default {
     JsonData,
     BubbleChartEdit,
     PackFlatChartEdit,
+    WordCloudEdit,
+    ForceDirectedChartEdit,
+    CollapsibleForceChartEdit,
     ChartHead
   },
   data() {

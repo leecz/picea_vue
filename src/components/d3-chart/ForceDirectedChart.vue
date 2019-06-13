@@ -28,15 +28,12 @@
 
 <script>
 import * as d3 from "d3";
-import datas from "./data/miserables.js";
+import defaultData from "./data/index";
 const defaultOption = {
   minLineWidth: 1,
   maxLineWidth: 10,
   colors: d3.schemeCategory10
 };
-function genData() {
-  return JSON.parse(JSON.stringify(datas));
-}
 import chartMixin from "./mixins/chartMixin";
 export default {
   name: "force-directed-chart",
@@ -44,7 +41,7 @@ export default {
   props: {
     dataset: {
       type: Object,
-      default: () => genData()
+      default: () => defaultData.ForceDirectedChart
     }
   },
   data() {
