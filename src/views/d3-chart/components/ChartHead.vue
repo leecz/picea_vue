@@ -14,7 +14,7 @@
       <el-button type="primary" @click="onSubmit" size="small" round>
         保存
       </el-button>
-      <el-button
+      <!-- <el-button
         v-if="isEdit"
         type="success"
         @click="onShow"
@@ -22,7 +22,7 @@
         round
       >
         导出
-      </el-button>
+      </el-button> -->
     </div>
   </div>
 </template>
@@ -32,10 +32,23 @@ import { SET_CHART_NAME } from "@/store/mutations.type";
 import { mapGetters } from "vuex";
 
 export default {
+  props: {
+    title: {
+      type: String,
+      default: ""
+    }
+  },
   data() {
     return {
-      name: "test"
+      name: this.title
     };
+  },
+  watch: {
+    title: {
+      handler() {
+        this.name = this.title;
+      }
+    }
   },
   computed: {
     // ...mapGetters(["isEdit"])
@@ -45,15 +58,7 @@ export default {
       this.$store.commit(SET_CHART_NAME, this.name);
     },
     onSubmit() {
-      let mutation = this.isEdit ? UPDATE_CHART : CREATE_CHART;
-      this.$store
-        .dispatch(mutation)
-        .then(() => {
-          this.$message("保存成功");
-        })
-        .catch(e => {
-          this.$message(e);
-        });
+      this.$emit("save", { name: this.name });
     },
     onShow() {
       this.$router.push({ name: "chart_show" });

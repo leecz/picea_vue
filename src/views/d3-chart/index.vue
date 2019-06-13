@@ -17,6 +17,7 @@
         />
       </div>
     </div>
+    <el-button @click="onClickTest">访问第7个d3图</el-button>
   </div>
 </template>
 
@@ -35,7 +36,13 @@ export default {
   },
   methods: {
     onClick(chart) {
-      this.$router.push({ name: "d3_chart_edit", params: { name: chart } });
+      this.$router.push({ name: "d3_chart_new", params: { name: chart } });
+    },
+    onClickTest() {
+      this.$router.push({
+        name: "d3_chart_edit",
+        params: { name: "BubbleChart", id: 7 }
+      });
     }
   }
 };
