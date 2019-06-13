@@ -1,12 +1,12 @@
-import Vue from "vue";
-import axios from "axios";
-import VueAxios from "vue-axios";
-import JwtService from "@/common/jwt.service";
-import { API_URL } from "@/common/config";
+import Vue from 'vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import JwtService from '@/common/jwt.service';
+import { API_URL } from '@/common/config';
 
 function setHeader() {
   Vue.axios.defaults.headers.common[
-    "Authorization"
+    'Authorization'
   ] = `Bearer ${JwtService.getToken()}`;
 }
 
@@ -26,7 +26,7 @@ const ApiService = {
     });
   },
 
-  get(resource, slug = "") {
+  get(resource, slug = '') {
     return Vue.axios.get(`${resource}/${slug}`).catch(error => {
       throw new Error(`[RWV] ApiService ${error}`);
     });
@@ -55,24 +55,24 @@ export default ApiService;
 
 export const ChartsService = {
   list() {
-    return ApiService.get("/api/v1/charts");
+    return ApiService.get('/api/v1/charts');
   }
 };
 
 export const ArticlesService = {
   query(type, params) {
-    return ApiService.query("articles" + (type === "feed" ? "/feed" : ""), {
+    return ApiService.query('articles' + (type === 'feed' ? '/feed' : ''), {
       params: params
     });
   },
   get(slug) {
-    return ApiService.get("articles", slug);
+    return ApiService.get('articles', slug);
   },
   create(params) {
-    return ApiService.post("articles", { article: params });
+    return ApiService.post('articles', { article: params });
   },
   update(slug, params) {
-    return ApiService.update("articles", slug, { article: params });
+    return ApiService.update('articles', slug, { article: params });
   },
   destroy(slug) {
     return ApiService.delete(`articles/${slug}`);
@@ -81,31 +81,45 @@ export const ArticlesService = {
 
 export const SheetService = {
   create(payload) {
-    return ApiService.post("/api/v1/sheets", payload);
+    return ApiService.post('/api/v1/sheets', payload);
   },
   list() {
-    return ApiService.get("/api/v1/sheets");
+    return ApiService.get('/api/v1/sheets');
   }
 };
 export const ChartService = {
   create(payload) {
-    return ApiService.post("/api/v1/charts", payload);
+    return ApiService.post('/api/v1/charts', payload);
   },
   update(id, payload) {
     return ApiService.put(`/api/v1/charts/${id}`, payload);
   },
   list() {
-    return ApiService.get("/api/v1/charts");
+    return ApiService.get('/api/v1/charts');
+  }
+};
+export const DchartsService = {
+  create(payload) {
+    return ApiService.post('/api/v1/dcharts', payload);
+  },
+  update(id, payload) {
+    return ApiService.put(`/api/v1/dcharts/${id}`, payload);
+  },
+  list() {
+    return ApiService.get('/api/v1/dcharts');
+  },
+  show(id) {
+    return ApiService.get(`/api/v1/dcharts/${id}`);
   }
 };
 export const CommentsService = {
   get(slug) {
-    if (typeof slug !== "string") {
+    if (typeof slug !== 'string') {
       throw new Error(
-        "[RWV] CommentsService.get() article slug required to fetch comments"
+        '[RWV] CommentsService.get() article slug required to fetch comments'
       );
     }
-    return ApiService.get("articles", `${slug}/comments`);
+    return ApiService.get('articles', `${slug}/comments`);
   },
 
   post(slug, payload) {

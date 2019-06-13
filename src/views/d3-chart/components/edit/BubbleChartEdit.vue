@@ -24,7 +24,14 @@
 </template>
 
 <script>
+import _ from "lodash";
 export default {
+  props: {
+    options: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       option: {
@@ -43,6 +50,11 @@ export default {
     };
   },
   watch: {
+    options: {
+      handler() {
+        this.option = _.merge(this.option, this.options);
+      }
+    },
     option: {
       deep: true,
       handler() {
