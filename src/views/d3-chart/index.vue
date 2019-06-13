@@ -17,7 +17,6 @@
         />
       </div>
     </div>
-    <el-button @click="onClickTest">访问第7个d3图</el-button>
   </div>
 </template>
 
@@ -29,9 +28,7 @@ export default {
     return {
       D3Chart,
       D3Data,
-      option: {
-        thumb: true
-      }
+      option: {}
     };
   },
   methods: {

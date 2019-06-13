@@ -14,11 +14,12 @@
           <use :xlink:href="`#node-${c.data.id}`"></use>
         </clipPath>
         <text
-          v-if="!options.thumb"
+          v-if="c.data.value >= options.labelValue"
           :clip-path="`url(#clip-${c.data.id})`"
           :x="c.x"
           :y="c.y"
           dy=".3em"
+          fill="#fff"
           text-anchor="middle"
         >
           {{ c.data.name }}
@@ -33,38 +34,31 @@
 
 <script>
 import * as d3 from "d3";
+import chartMixin from "./mixins/chartMixin.js";
+import defaultData from "./data/index";
+import _ from "lodash";
 const defaultOption = {
+  chart: "PackFlatChart",
+  minRadius: 1,
+  maxRadius: 20,
+  labelValue: 10,
   colors: d3.schemeCategory10,
-  thumb: false
+  forceProps: {
+    collide: {
+      enabled: true,
+      strength: 0.7,
+      iterations: 1,
+      radius: 1
+    }
+  }
 };
-function genData() {
-  return d3.range(200).map((_, i) => {
-    let item = {};
-    item.value = Math.floor(Math.random() * Math.sqrt(i));
-    // item.group = Math.floor(Math.random() * i) % 2;
-    item.name = i;
-    item.id = i;
-    return item;
-  });
-}
 export default {
-  name: "force-chart",
+  name: "pack-flat-chart",
+  mixins: [chartMixin],
   props: {
-    width: {
-      type: Number,
-      default: 600
-    },
-    height: {
-      type: Number,
-      default: 400
-    },
-    option: {
-      type: Object,
-      default: () => ({})
-    },
     dataset: {
       type: Array,
-      default: () => genData()
+      default: () => defaultData.PackFlatChart
     }
   },
   data() {
@@ -84,22 +78,6 @@ export default {
       return this.options.colors[0];
     }
   },
-  watch: {
-    option: {
-      deep: true,
-      immediate: true,
-      handler() {
-        this.genOptions();
-      }
-    },
-    dataset: {
-      deep: true,
-      immediate: true,
-      handler() {
-        this.genNodes();
-      }
-    }
-  },
   methods: {
     genNodes() {
       let root = d3
@@ -114,7 +92,7 @@ export default {
       this.nodes = root.leaves();
     },
     genOptions() {
-      this.options = Object.assign(defaultOption, { ...this.option });
+      this.options = _.merge(defaultOption, this.option);
     },
     setZoom() {
       this.svg.call(
