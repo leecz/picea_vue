@@ -38,12 +38,14 @@ import D3Data from "@/components/d3-chart/data";
 import ChartHead from "./components/ChartHead";
 
 import BubbleChartEdit from "./components/edit/BubbleChartEdit";
+import PackFlatChartEdit from "./components/edit/PackFlatChartEdit";
 import { DchartsService } from "@/common/api.service";
 export default {
   name: "d3-edit",
   components: {
     JsonData,
     BubbleChartEdit,
+    PackFlatChartEdit,
     ChartHead
   },
   data() {
@@ -88,7 +90,7 @@ export default {
           option: this.option,
           type: this.chartName
         }
-      }).then(res => {
+      }).then(() => {
         this.$message("修改成功");
       });
     },

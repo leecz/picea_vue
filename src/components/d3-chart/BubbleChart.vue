@@ -12,7 +12,6 @@
           <use :xlink:href="`#bubble-node-${i}`"></use>
         </clipPath>
         <text
-          v-if="!options.thumb"
           v-show="c.showLabel"
           :clip-path="`url(#bubble-clip-${i})`"
           class="bubble-chart-text"
@@ -39,7 +38,6 @@ const defaultOption = {
   chart: "BubbleChart",
   minRadius: 1,
   maxRadius: 20,
-  thumb: false,
   labelValue: 100,
   colors: d3.schemeCategory10,
   forceProps: {
