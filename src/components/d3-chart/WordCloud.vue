@@ -5,52 +5,19 @@
 <script>
 import * as d3 from "d3";
 import cloud from "./d3-cloud-layout";
-
-function genData() {
-  return [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "TypeScript",
-    "HTTP",
-    "GraphQL",
-    "PostgreSQL",
-    "Webpack",
-    "Vue",
-    "React",
-    "DOM",
-    "Git",
-    "SVG",
-    "Node.js"
-  ].map(d => {
-    return {
-      text: d,
-      size: 10 + Math.random() * 90,
-      group: Math.floor(Math.random() * 2)
-    };
-  });
-}
+import defaultData from "./data/index";
+import chartMixin from "./mixins/chartMixin";
 
 const defaultOption = {
   colors: d3.schemeCategory10
 };
 export default {
+  name: "word-cloud-chart",
+  mixins: [chartMixin],
   props: {
-    width: {
-      type: Number,
-      default: 600
-    },
-    height: {
-      type: Number,
-      default: 400
-    },
-    option: {
-      type: Object,
-      default: () => ({})
-    },
     dataset: {
       type: Array,
-      default: () => genData()
+      default: () => defaultData.WordCloud
     }
   },
   data() {
@@ -76,22 +43,6 @@ export default {
           return d.size;
         })
         .on("end", this.draw);
-    }
-  },
-  watch: {
-    option: {
-      deep: true,
-      immediate: true,
-      handler() {
-        this.genOptions();
-      }
-    },
-    dataset: {
-      deep: true,
-      immediate: true,
-      handler() {
-        this.genNodes();
-      }
     }
   },
   methods: {

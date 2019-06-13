@@ -29,11 +29,8 @@
 <script>
 import * as d3 from "d3";
 import _ from "lodash";
-import datas from "./data/flare.js";
+import defaultData from "./data/index";
 import chartMixin from "./mixins/chartMixin.js";
-function genData() {
-  return _.cloneDeep(datas);
-}
 const defaultOption = {
   minRadius: 2,
   maxRadius: 20
@@ -43,7 +40,7 @@ export default {
   props: {
     dataset: {
       type: Object,
-      default: () => genData()
+      default: () => defaultData.CollapsibleForceChart
     }
   },
   data() {
