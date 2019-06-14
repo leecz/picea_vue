@@ -10,17 +10,29 @@
         ></line>
       </g>
       <g>
-        <circle
-          v-for="c in nodes"
-          :r="5"
-          :key="c.id"
-          :cx="c.x || 0"
-          :cy="c.y || 0"
-          class="force-chart-node"
-          :fill="color(c.group)"
-        >
-          <title>{{ c.id }}</title>
-        </circle>
+        <g v-for="(c, i) in nodes" :key="i">
+          <circle
+            :r="options.radius"
+            :cx="c.x || 0"
+            :cy="c.y || 0"
+            class="force-chart-node"
+            :fill="color(c.group)"
+          >
+            <title>{{ c.id }}</title>
+          </circle>
+          <text
+            v-if="options.showLabel"
+            class="force-directed-chart-text"
+            :x="c.x"
+            :y="c.y"
+            fill="#333"
+            style="font-size: 10px;"
+            dy=".3em"
+            text-anchor="middle"
+          >
+            {{ c.id }}
+          </text>
+        </g>
       </g>
     </g>
   </svg>
@@ -30,9 +42,32 @@
 import * as d3 from "d3";
 import defaultData from "./data/index";
 const defaultOption = {
-  minLineWidth: 1,
-  maxLineWidth: 10,
-  colors: d3.schemeCategory10
+  radius: 5,
+  showLabel: false,
+  colors: d3.schemeCategory10,
+  forceProps: {
+    collide: {
+      enabled: true,
+      strength: 0.7,
+      iterations: 1,
+      radius: 1
+    },
+    charge: {
+      strenth: -200,
+      enabled: 1,
+      distanceMin: 1,
+      distanceMax: 2000
+    },
+    link: {
+      distance: 30
+    },
+    forceX: {
+      strength: 0
+    },
+    forceY: {
+      strength: 0
+    }
+  }
 };
 import chartMixin from "./mixins/chartMixin";
 export default {
@@ -66,6 +101,9 @@ export default {
     },
     svg() {
       return d3.select(this.$refs.chart);
+    },
+    text() {
+      return this.svg.selectAll(".force-directed-chart-text").data(this.nodes);
     },
     color() {
       return d3
@@ -101,8 +139,17 @@ export default {
         .on("end", dragended);
     },
     renderChart() {
+      let forceProps = this.options.forceProps;
       this.simulation
-        .force("link", d3.forceLink(this.links).id(d => d.id))
+        .force(
+          "link",
+          d3
+            .forceLink(this.links)
+            .id(d => d.id)
+            .distance(forceProps.link.distance)
+        )
+        .force("forceX", d3.forceX().strength(forceProps.forceX.strength))
+        .force("forceY", d3.forceY().strength(forceProps.forceY.strength))
         .force("charge", d3.forceManyBody())
         .force("center", d3.forceCenter(this.width / 2, this.height / 2));
       this.simulation.on("tick", this.tick);
@@ -114,6 +161,7 @@ export default {
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
       this.circles.attr("cx", d => d.x).attr("cy", d => d.y);
+      this.text.attr("x", d => d.x).attr("y", d => d.y);
     },
     genNodes() {
       let widthScale = d3

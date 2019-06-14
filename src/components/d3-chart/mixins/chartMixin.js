@@ -21,6 +21,8 @@ export default {
       immediate: true,
       handler() {
         this.genOptions();
+        this.genNodes();
+        this.renderChart();
       }
     },
     dataset: {
@@ -28,6 +30,7 @@ export default {
       immediate: true,
       handler() {
         this.genNodes();
+        this.renderChart();
       }
     }
   }

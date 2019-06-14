@@ -1,21 +1,35 @@
 <template>
   <div>
     <el-form size="mini" label-width="80px">
-      <el-form-item label="最小半径">
-        <el-input type="number" v-model.number="option.minRadius"></el-input>
+      <el-form-item label="圆半径">
+        <el-input type="number" v-model.number="option.radius"></el-input>
       </el-form-item>
-      <el-form-item label="最大半径">
-        <el-input type="number" v-model.number="option.maxRadius"></el-input>
+      <el-form-item label="显示标签">
+        <el-switch v-model="option.showLabel"></el-switch>
       </el-form-item>
-      <el-form-item label="标签阈值">
-        <el-input type="number" v-model.number="option.labelValue"></el-input>
+      <el-form-item label="连接力">
+        <vue-slider
+          :min="-50"
+          :max="50"
+          v-model.number="option.forceProps.link.distance"
+          use-keyboard
+        ></vue-slider>
       </el-form-item>
-      <el-form-item label="碰撞力">
+      <el-form-item label="X方向力">
         <vue-slider
           :min="0"
           :max="1"
           :interval="0.1"
-          v-model.number="option.forceProps.collide.strength"
+          v-model.number="option.forceProps.forceX.strength"
+          use-keyboard
+        ></vue-slider>
+      </el-form-item>
+      <el-form-item label="Y方向力">
+        <vue-slider
+          :min="0"
+          :max="1"
+          :interval="0.1"
+          v-model.number="option.forceProps.forceY.strength"
           use-keyboard
         ></vue-slider>
       </el-form-item>
@@ -35,15 +49,29 @@ export default {
   data() {
     return {
       option: {
-        minRadius: 1,
-        maxRadius: 20,
-        labelValue: 100,
+        radius: 5,
+        showLabel: false,
         forceProps: {
           collide: {
             enabled: true,
             strength: 0.7,
             iterations: 1,
             radius: 1
+          },
+          charge: {
+            strenth: -30,
+            enabled: 1,
+            distanceMin: 1,
+            distanceMax: 2000
+          },
+          link: {
+            distance: 30
+          },
+          forceX: {
+            strength: 0
+          },
+          forceY: {
+            strength: 0
           }
         }
       }
