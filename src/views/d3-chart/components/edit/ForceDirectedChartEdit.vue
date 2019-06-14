@@ -62,7 +62,7 @@ export default {
             strenth: -30,
             enabled: 1,
             distanceMin: 1,
-            distanceMax: 2000
+            distanceMax: 200
           },
           link: {
             distance: 30
