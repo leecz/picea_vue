@@ -19,7 +19,9 @@
           class="collapsible-force-node"
           :fill="c.data.isLeaf ? '#fd8d3c' : '#c6dbef'"
         >
-          <title>{{ c.data.name + ":" + c.data.value }}</title>
+          <title>
+            {{ `${c.data.name} ${c.data.value ? ": " + c.data.value : ""}` }}
+          </title>
         </circle>
       </g>
     </g>
@@ -33,7 +35,30 @@ import defaultData from "./data/index";
 import chartMixin from "./mixins/chartMixin.js";
 const defaultOption = {
   minRadius: 2,
-  maxRadius: 20
+  maxRadius: 20,
+  forceProps: {
+    collide: {
+      enabled: true,
+      strength: 0.7,
+      iterations: 1,
+      radius: 1
+    },
+    charge: {
+      strength: -10,
+      enabled: 1,
+      distanceMin: 1,
+      distanceMax: 200
+    },
+    link: {
+      distance: 30
+    },
+    forceX: {
+      strength: 0
+    },
+    forceY: {
+      strength: 0
+    }
+  }
 };
 export default {
   mixins: [chartMixin],
@@ -100,15 +125,24 @@ export default {
       );
     },
     renderChart() {
+      let forceProps = this.options.forceProps;
       this.simulation
-        .force("link", d3.forceLink(this.links).id(d => d.id))
+        .force(
+          "link",
+          d3
+            .forceLink(this.links)
+            .id(d => d.id)
+            .distance(forceProps.link.distance)
+        )
         .force(
           "charge",
           d3
             .forceManyBody()
-            .strength(-10)
-            .distanceMax(200)
+            .strength(forceProps.charge.strength)
+            .distanceMax(forceProps.charge.distanceMax)
         )
+        .force("forceX", d3.forceX().strength(forceProps.forceX.strength))
+        .force("forceY", d3.forceY().strength(forceProps.forceY.strength))
         .force("center", d3.forceCenter(this.width / 2, this.height / 2))
         .force("collide", d3.forceCollide().radius(d => d.data.radius + 1));
       this.simulation.on("tick", this.tick);
