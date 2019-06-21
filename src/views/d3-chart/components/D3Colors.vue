@@ -9,17 +9,6 @@
       >
       </el-option>
     </el-select>
-    <div class="flex flex-wrap">
-      <div v-for="(color, i) in customColors" :key="i" class="mr1">
-        <el-color-picker
-          v-model="customColors[i]"
-          @change="onColorChange"
-        ></el-color-picker>
-      </div>
-      <div @click="addColor">
-        <el-button type="primary" icon="el-icon-plus" circle></el-button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -27,11 +16,15 @@
 import * as d3 from "d3";
 export default {
   inheritAttrs: false,
-  props: ["value"],
+  props: {
+    value: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
-      select: d3.schemeCategory10,
-      customColors: [],
+      select: [...this.value],
       colors: [
         { key: "schemeCategory10", val: d3.schemeCategory10 },
         { key: "schemeAccent", val: d3.schemeAccent },
@@ -41,29 +34,14 @@ export default {
         { key: "schemePastel2", val: d3.schemePastel2 },
         { key: "schemeSet1", val: d3.schemeSet1 },
         { key: "schemeSet2", val: d3.schemeSet2 },
-        { key: "schemeSet3", val: d3.schemeSet }
+        { key: "schemeSet3", val: d3.schemeSet3 }
       ]
     };
-  },
-  watch: {
-    select() {
-      this.customColors = [...this.select];
-    }
   },
   methods: {
     onChange() {
       this.$emit("input", [...this.select]);
-    },
-    addColor() {
-      this.customColors.push("#ffffff");
-    },
-    onColorChange() {
-      this.$emit("input", [...this.customColors]);
     }
-  },
-  created() {
-    this.select = this.value;
-    this.customColors = [...this.select];
   }
 };
 </script>

@@ -10,12 +10,14 @@
       >
         <component
           :is="chart"
+          :key="name"
           :width="250"
           :height="250"
           :option="option"
           :dataset="D3Data[name]"
         />
       </div>
+      <!-- <el-button @click="onClickTest">改变颜色</el-button> -->
     </div>
   </div>
 </template>
@@ -23,12 +25,15 @@
 <script>
 import D3Chart from "@/components/d3-chart";
 import D3Data from "@/components/d3-chart/data";
+import * as d3 from "d3";
 export default {
   data() {
     return {
       D3Chart,
       D3Data,
-      option: {}
+      option: {
+        colors: d3.schemeCategory10
+      }
     };
   },
   methods: {
@@ -36,10 +41,7 @@ export default {
       this.$router.push({ name: "d3_chart_new", params: { name: chart } });
     },
     onClickTest() {
-      this.$router.push({
-        name: "d3_chart_edit",
-        params: { name: "BubbleChart", id: 7 }
-      });
+      this.option.colors = ["#333", "#facacf"];
     }
   },
   mounted() {}

@@ -115,7 +115,7 @@ export default {
       this.links = root.links();
     },
     genOptions() {
-      this.options = Object.assign(defaultOption, { ...this.option });
+      this.options = _.merge({}, defaultOption, { ...this.option });
     },
     setZoom() {
       this.svg.call(

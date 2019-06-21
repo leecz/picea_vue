@@ -56,6 +56,10 @@ export default {
   name: "pack-flat-chart",
   mixins: [chartMixin],
   props: {
+    option: {
+      type: Object,
+      default: () => ({})
+    },
     dataset: {
       type: Array,
       default: () => defaultData.PackFlatChart
@@ -92,8 +96,9 @@ export default {
       this.nodes = root.leaves();
     },
     genOptions() {
-      this.options = _.merge(defaultOption, this.option);
+      this.options = _.merge({}, defaultOption, this.option);
     },
+    renderChart() {},
     setZoom() {
       this.svg.call(
         d3.zoom().on("zoom", () => {
