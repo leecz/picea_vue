@@ -41,7 +41,8 @@ export default {
         params: { name: "BubbleChart", id: 7 }
       });
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 

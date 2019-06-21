@@ -19,13 +19,21 @@
           use-keyboard
         ></vue-slider>
       </el-form-item>
+      <el-form-item label="颜色">
+        <d3-colors v-model="option.colors"></d3-colors>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import D3Colors from "../D3Colors";
+import * as d3 from "d3";
 import _ from "lodash";
 export default {
+  components: {
+    D3Colors
+  },
   props: {
     options: {
       type: Object,
@@ -35,6 +43,7 @@ export default {
   data() {
     return {
       option: {
+        colors: d3.schemeCategory10,
         minRadius: 1,
         maxRadius: 20,
         labelValue: 100,
