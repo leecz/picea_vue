@@ -63,7 +63,7 @@ export default {
     color() {
       return d3
         .scaleOrdinal()
-        .domain(this.dataset.map(d => d.group))
+        .domain(this.nodes.map(d => d.group))
         .range(this.options.colors);
     }
   },

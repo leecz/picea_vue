@@ -41,6 +41,7 @@
 <script>
 import * as d3 from "d3";
 import defaultData from "./data/index";
+import _ from "lodash";
 const defaultOption = {
   radius: 5,
   showLabel: false,
@@ -175,7 +176,7 @@ export default {
       }));
     },
     genOptions() {
-      this.options = Object.assign(defaultOption, { ...this.option });
+      this.options = _.merge({}, defaultOption, this.option);
     },
     setZoom() {
       this.svg.call(

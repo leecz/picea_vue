@@ -34,6 +34,7 @@
 
 <script>
 import * as d3 from "d3";
+import _ from "lodash";
 const defaultOption = {
   chart: "BubbleChart",
   minRadius: 1,
@@ -91,7 +92,7 @@ export default {
     color() {
       return d3
         .scaleOrdinal()
-        .domain(this.dataset.map(d => d.group))
+        .domain(this.nodes.map(d => d.group))
         .range(this.options.colors);
     }
   },
@@ -159,7 +160,7 @@ export default {
       });
     },
     genOptions() {
-      this.options = Object.assign(defaultOption, { ...this.option });
+      this.options = _.merge({}, defaultOption, this.option);
     },
     setZoom() {
       this.svg.call(
