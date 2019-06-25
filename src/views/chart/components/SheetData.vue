@@ -11,6 +11,10 @@
         ></el-option>
       </el-select>
     </div>
+    <div class="mb2">
+      数据说明：
+      <div class="f6 gray mt1">{{ currentConfig.data_desc }}</div>
+    </div>
     <hot-table
       :settings="settings"
       :data="sheetData"
@@ -28,6 +32,7 @@ import { UPDATE_OPTION } from "@/store/mutations.type";
 import { SET_CHART_SERIES } from "@/store/actions.type";
 
 import { SheetService } from "@/common/api.service";
+import { mapGetters } from "vuex";
 
 export default {
   name: "sheet-data",
@@ -60,6 +65,9 @@ export default {
       dataset: {},
       hotRef: null
     };
+  },
+  computed: {
+    ...mapGetters(["currentConfig"])
   },
   methods: {
     getSourceData() {

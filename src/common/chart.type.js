@@ -230,7 +230,6 @@ const charts = [
       tooltip: {},
       dataset: {
         source: [
-          ["product", "2015"],
           ["拿铁", 43.3],
           ["奶茶", 83.1],
           ["可可", 86.4],
