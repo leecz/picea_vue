@@ -8,6 +8,14 @@
       </div>
       <div class="ba b--light-gray mr2 mt2 pa2">
         数据
+        <el-tooltip
+          class="item"
+          effect="dark"
+          :content="currentConfig.data_desc"
+          placement="right-end"
+        >
+          <el-button type="text">?</el-button>
+        </el-tooltip>
         <div class="flex justify-end align-center pa2">
           <slot name="data-column"></slot>
         </div>

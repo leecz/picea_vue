@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="f6 gray">
-      根据json结构填写数据
-    </div>
     <div id="json-editor" class="vh-50"></div>
   </div>
 </template>

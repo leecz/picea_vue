@@ -11,10 +11,7 @@
         ></el-option>
       </el-select>
     </div>
-    <div class="mb2">
-      数据说明：
-      <div class="f6 gray mt1">{{ currentConfig.data_desc }}</div>
-    </div>
+
     <hot-table
       :settings="settings"
       :data="sheetData"
@@ -65,9 +62,6 @@ export default {
       dataset: {},
       hotRef: null
     };
-  },
-  computed: {
-    ...mapGetters(["currentConfig"])
   },
   methods: {
     getSourceData() {
