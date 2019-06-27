@@ -1,6 +1,9 @@
 <template>
   <div>
     <div>我的图表</div>
+    <div class="gray f6 bl bw2 mv3 pl2">
+      Echarts 图表
+    </div>
     <div class="flex flex-wrap">
       <div
         :key="item.id"
@@ -14,11 +17,33 @@
         </div>
       </div>
     </div>
+    <div class="gray f6 bl bw2 mv3 pl2">
+      d3 图表
+    </div>
+    <div class="flex flex-wrap">
+      <div
+        v-for="(item, i) in dcharts"
+        :key="i"
+        class="ba pa1 ma2 b--light-gray"
+      >
+        <img :src="item.thumb" width="250" height="250" alt="" />
+        <div class="flex justify-around items-center">
+          <div>
+            {{ item.name }}
+          </div>
+          <div>
+            <el-button size="mini" @click="handleDchartEdit(item)"
+              >编辑</el-button
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { ChartsService } from "@/common/api.service";
+import { ChartsService, DchartsService } from "@/common/api.service";
 import echarts from "echarts";
 import _ from "lodash";
 import { SET_CHART } from "@/store/mutations.type";
@@ -27,7 +52,8 @@ export default {
   name: "chart-index",
   data() {
     return {
-      dataset: []
+      dataset: [],
+      dcharts: []
     };
   },
   methods: {
@@ -38,6 +64,15 @@ export default {
     onShowClick(chart) {
       this.$store.commit(SET_CHART, { ...chart });
       this.$router.push({ name: "chart_show" });
+    },
+    handleDchartEdit(item) {
+      this.$router.push({
+        name: "d3_chart_edit",
+        params: {
+          id: item.id,
+          name: item.type
+        }
+      });
     },
     renderChart() {
       this.dataset.forEach(chart => {
@@ -56,10 +91,16 @@ export default {
           this.renderChart();
         });
       });
+    },
+    getDchartsList() {
+      DchartsService.list().then(res => {
+        this.dcharts = res.data.data;
+      });
     }
   },
   mounted() {
     this.getList();
+    this.getDchartsList();
   }
 };
 </script>
