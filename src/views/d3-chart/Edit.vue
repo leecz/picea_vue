@@ -73,38 +73,35 @@ export default {
     }
   },
   methods: {
-    createCharts(val) {
-      DchartsService.create({
-        dchart: {
-          data: { dataset: this.dataset },
-          name: val.name,
-          option: this.option,
-          type: this.chartName
-        }
-      }).then(res => {
-        console.log(res);
+    createCharts(params) {
+      DchartsService.create(params).then(res => {
         this.$message("保存成功");
         this.id = res.data.data.id;
       });
     },
-    updateCharts(val) {
-      DchartsService.update(this.id, {
-        dchart: {
-          id: this.id,
-          data: { dataset: this.dataset },
-          name: val.name,
-          option: this.option,
-          type: this.chartName
-        }
-      }).then(() => {
+    updateCharts(params) {
+      DchartsService.update(this.id, params).then(() => {
         this.$message("修改成功");
       });
     },
     handleSave(val) {
+      let dom = this.$refs.chart.$el;
+      let thumbDom = dom.cloneNode(true);
+      let str = new XMLSerializer().serializeToString(thumbDom);
+      let encodeData = "data:image/svg+xml;base64," + window.btoa(str);
+      let params = {
+        dchart: {
+          data: { dataset: this.dataset },
+          name: val.name,
+          option: this.option,
+          type: this.chartName,
+          thumb: encodeData
+        }
+      };
       if (this.isEdit) {
-        this.updateCharts(val);
+        this.updateCharts(params);
       } else {
-        this.createCharts(val);
+        this.createCharts(params);
       }
     },
     onDataChange(val) {
